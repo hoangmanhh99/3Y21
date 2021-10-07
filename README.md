@@ -1,4 +1,5 @@
 # flutter_application
+a Flutter App controls a Arduino car.
 
 ## Structure
 - assets
