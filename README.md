@@ -16,6 +16,12 @@ a Flutter App controls a Arduino car.
         - __model__: Model in domain layer, suffix: *_model*
         - __repository__: repository in domain layer
     - __pages__: Screen, Page of Application, suffix: *_page*
+        - __authentication__:
+                - _sign_in_:
+        - __main__:
+                - _home_:
+        - __splash__:
+                - _app_splash_page:
     - __utils__
     - __widgets__: Component reuse on this app, suffix: *_widget*
     - __application.dart__: MaterialApp of this app
