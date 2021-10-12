@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_application/data/blocs/auth/auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   final int initialPage;
@@ -13,9 +15,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Home Page'),
+        child: ElevatedButton(
+            onPressed: () async {
+              context.read<AuthBloc>().logout();
+            },
+            child: const Text('Log out')),
       ),
     );
   }

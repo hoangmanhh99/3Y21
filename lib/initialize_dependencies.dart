@@ -29,7 +29,11 @@ Future initializeDependencies() async {
           AuthenticationDto>(
       currentValue: GetIt.instance.get<LocalService>().getAuthenticationDto(),
       onSave: (value) {
-        GetIt.instance.get<LocalService>().saveAuth(value as AuthenticationDto);
+        if (value == null) {
+          GetIt.instance.get<SharedPreferences>().clear();
+        } else {
+          GetIt.instance.get<LocalService>().saveAuth(value as AuthenticationDto);
+        }
       });
 
   GetIt.instance

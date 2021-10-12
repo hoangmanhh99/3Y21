@@ -28,6 +28,7 @@ dependencies:
 
   oauth2_dio:
     git: https://github.com/dangngocduc/oauth2_dio
+  intl:
 
 
 dev_dependencies:
