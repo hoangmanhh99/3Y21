@@ -29,12 +29,15 @@ dependencies:
   oauth2_dio:
     git: https://github.com/dangngocduc/oauth2_dio
   intl:
+  connectivity:
+  wifi_info_flutter:
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
+  flutter_gen_runner:
   json_serializable:
   freezed:
   flutter_lints: ^1.0.4

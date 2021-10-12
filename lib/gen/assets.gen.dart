@@ -9,6 +9,8 @@ class $AssetsIconsGen {
   const $AssetsIconsGen();
 
   String get homeBlack24dp => 'assets/icons/home_black_24dp.svg';
+  String get wifi => 'assets/icons/wifi.svg';
+  String get wifiOff => 'assets/icons/wifi_off.svg';
 }
 
 class Assets {
