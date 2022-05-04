@@ -40,15 +40,10 @@ ThemeData light(BuildContext context) {
             borderRadius: BorderRadius.circular(UIConstants.borderRadius_12),
           ),
           color: Colors.white),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(color: Colors.orange),
+          iconTheme: IconThemeData(color: Colors.orange),
           centerTitle: true,
-          textTheme: TextTheme(
-              title: Theme.of(context).textTheme.headline6!.copyWith(
-                  foreground: Paint()..shader = ColorConstants.mainColor,
-                  fontWeight: FontWeight.w700
-              )),
           elevation: 0
       ),
       textTheme: TextTheme(

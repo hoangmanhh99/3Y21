@@ -1,27 +1,128 @@
-class AppConstants {
-  static const String CHECK_ON_BOARD = "CHECK_ON_BOARD";
-  static bool validateDate(String date) {
-    //dd/MM/yyyy
-    final reg2 = RegExp(r'''\b(0?[1-9]|[12][0-9]|3[01])\/(1|01|3|03|5|05|7|07|8|08|10|12)\/(19|20)?[0-9]{2}$\b''');
-    final reg3 = RegExp(r'''\b(0?[1-9]|[12][0-9]|30)\/(4|04|6|06|9|09|11)\/(19|20)?[0-9]{2}$\b''');
-    final reg4 = RegExp(r'''\b(0?[1-9]|[12]?[0-9])\/(2|02)\/(1952|1956|1960|1964|1968|1972|1976|1980|1984|1988|1992|1996|2000|2004|2008|2012|2016|2020|2024|2028|2032|2036|2040)$\b''');
-    final reg5 = RegExp(r'''\b(0?[1-9]|[12]?[0-8]|19)\/(2|02)\/(19|20)?[0-9]{2}$\b''');
-    if (reg2.hasMatch(date)||reg3.hasMatch(date)||reg4.hasMatch(date)||reg5.hasMatch(date)){
-      return true;
-    } else {
-      return false;
-    }
-  }
-  static bool validateTime(String time) {
-    //dd/MM/yyyy HH:mm
-    final reg2 = RegExp(r'''\b(0?[1-9]|[12][0-9]|3[01])\/(1|01|3|03|5|05|7|07|8|08|10|12)\/(19|20)?[0-9]{2} (2[0-3]|1[0-9]|0?[0-9])\:(0?[0-9]|[1-5][0-9])$\b''');
-    final reg3 = RegExp(r'''\b(0?[1-9]|[12][0-9]|30)\/(4|04|6|06|9|09|11)\/(19|20)?[0-9]{2} (2[0-3]|1[0-9]|0?[0-9])\:(0?[0-9]|[1-5][0-9])$\b''');
-    final reg4 = RegExp(r'''\b(0?[1-9]|[12]?[0-9])\/(2|02)\/(1952|1956|1960|1964|1968|1972|1976|1980|1984|1988|1992|1996|2000|2004|2008|2012|2016|2020|2024|2028|2032|2036|2040) (2[0-3]|1[0-9]|0?[0-9])\:(0?[0-9]|[1-5][0-9])$\b''');
-    final reg5 = RegExp(r'''\b(0?[1-9]|[12]?[0-8]|19)\/(2|02)\/(19|20)?[0-9]{2} (2[0-3]|1[0-9]|0?[0-9])\:(0?[0-9]|[1-5][0-9])$\b''');
-    if (reg2.hasMatch(time)||reg3.hasMatch(time)||reg4.hasMatch(time)||reg5.hasMatch(time)){
-      return true;
-    } else {
-      return false;
-    }
-  }
+import 'package:flutter/cupertino.dart';
+
+
+const String male = 'male';
+const String female = 'female';
+const String other = 'other';
+const String keyTracking = 'key_tracking';
+
+const double borderRadius12 = 12;
+const double kTabHeight = 46.0;
+
+const String addressIdKey = "addressId";
+const int collectionId1 = 2702942;
+const int collectionId2 = 2702940;
+
+const kProductListImageRatio = 166.0/220;
+const kProductBannerSlide = 375.0/180;
+const kProductBannerVertical = 343.0/120;
+
+const kSizeImageCache = 1080;
+
+
+const kPadding = {
+  0: EdgeInsets.symmetric(horizontal: 32, vertical: 0),
+  1: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+  2: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+  3: EdgeInsets.all(24),
+  4: EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+  5: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+  6: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  7: EdgeInsets.fromLTRB(16,18,16,12),
+};
+
+const kSpacingHeight4 = SizedBox(
+  height: 4,
+);
+
+const kSpacingHeight2 = SizedBox(
+  height: 2,
+);
+
+
+const kSpacingHeight6 = SizedBox(
+  height: 6,
+);
+
+const kSpacingHeight8 = SizedBox(
+  height: 8,
+);
+
+
+const kSpacingHeight10 = SizedBox(
+  height: 10,
+);
+
+const kSpacingHeight12 = SizedBox(
+  height: 12,
+);
+
+const kSpacingHeight14 = SizedBox(
+  height: 14,
+);
+
+
+const kSpacingHeight16 = SizedBox(
+  height: 16,
+);
+
+const kSpacingHeight18 = SizedBox(
+  height: 18,
+);
+
+const kSpacingHeight24 = SizedBox(
+  height: 24,
+);
+
+const kSpacingHeight32 = SizedBox(
+  height: 32,
+);
+
+const kSpacingHeight36 = SizedBox(
+  height: 36,
+);
+
+const kSpacingHeight48 = SizedBox(
+  height: 48,
+);
+
+const kSpacingWidth4 = SizedBox(
+  width: 4,
+);
+
+const kSpacingWidth6 = SizedBox(
+  width: 6,
+);
+
+const kSpacingWidth8 = SizedBox(
+  width: 8,
+);
+
+const kSpacingWidth12 = SizedBox(
+  width: 12,
+);
+
+const kSpacingWidth14 = SizedBox(
+  width: 14,
+);
+
+const kSpacingWidth16 = SizedBox(
+  width: 16,
+);
+
+class ColorConstants {
+  static const Color primaryColor = Color(0xffFCAF17);
+  static const Color grayColor = Color(0xfff2f2f2);
+  static const Color secondGrayColor = Color(0xff7a7a9d);
+  static const Color thirdGrayColor = Color(0xffeef2fe);
+  static const Color fourGrayColor = Color(0xff8a8a8f);
+
+  static const Color backgroundTextFieldGrayColor = Color(0xfff8f8f8);
+  static const Color textButtonColor = Color(0xff11006f);
+  static const Color blackColor = Color(0xff000000);
+
+  static const Color whiteBorderColor = Color(0xfff2f2f2);
+
+  static const Color textYellow = Color(0xffFCAF17);
 }
+
