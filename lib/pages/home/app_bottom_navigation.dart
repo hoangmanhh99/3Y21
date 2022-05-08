@@ -47,8 +47,10 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
                 child: BottomNavigationItem(
                   widget.pageController,
                   index: 0,
-                  icon: '',
-                  title: 'Mua sắm',
+                  icon: (currentIndex == 0)
+                      ? Assets.icons.icHomeSelected
+                      : Assets.icons.icHomeUnselected,
+                  title: 'Home',
                   currentIndex: currentIndex,
                 ),
               ),
@@ -56,27 +58,31 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
                 child: BottomNavigationItem(
                   widget.pageController,
                   index: 1,
-                  icon: '',
-                  title: 'Danh mục',
+                  icon: (currentIndex == 1)
+                      ? Assets.icons.icDeviceSelected
+                      : Assets.icons.icDeviceUnselected,
+                  title: 'Device',
                   currentIndex: currentIndex,
                 ),
               ),
-              Expanded(
-                  child: GestureDetector(
-                onTap: () {
-                  // Navigator.pushNamed(context, ArPage.path);
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  // child: SvgPicture.asset(Assets.icons.icAr),
-                ),
-              )),
+              // Expanded(
+              //     child: GestureDetector(
+              //   onTap: () {
+              //     // Navigator.pushNamed(context, ArPage.path);
+              //   },
+              //   child: Container(
+              //     alignment: Alignment.center,
+              //     // child: SvgPicture.asset(Assets.icons.icAr),
+              //   ),
+              // )),
               Expanded(
                 child: BottomNavigationItem(
                   widget.pageController,
                   index: 2,
-                  icon: 'Assets.icons.icStore',
-                  title: 'Cửa hàng',
+                  icon: (currentIndex == 2)
+                      ? Assets.icons.icVoiceSelected
+                      : Assets.icons.icVoiceUnselected,
+                  title: 'Voice',
                   currentIndex: currentIndex,
                 ),
               ),
@@ -84,8 +90,10 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
                 child: BottomNavigationItem(
                   widget.pageController,
                   index: 3,
-                  icon: 'Assets.icons.icProfile',
-                  title: 'Cá nhân',
+                  icon: (currentIndex == 3)
+                      ? Assets.icons.icSettingsSelected
+                      : Assets.icons.icSettingsUnselected,
+                  title: 'Settings',
                   currentIndex: currentIndex,
                 ),
               ),
@@ -122,7 +130,7 @@ class BottomNavigationItem extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(icon, width: 24, color: color),
+          SvgPicture.asset(icon, width: 24,),
           kSpacingHeight4,
           Text(
             title,
