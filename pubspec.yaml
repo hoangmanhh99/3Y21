@@ -31,7 +31,8 @@ dependencies:
   intl:
   connectivity:
   wifi_info_flutter:
-
+  speech_to_text: 5.4.3
+  alan_voice: 3.3.0
 
 dev_dependencies:
   flutter_test:
