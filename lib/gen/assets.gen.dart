@@ -13,6 +13,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/home_black_24dp.svg
   String get homeBlack24dp => 'assets/icons/home_black_24dp.svg';
 
+  /// File path: assets/icons/ic_arrow_down.svg
+  String get icArrowDown => 'assets/icons/ic_arrow_down.svg';
+
+  /// File path: assets/icons/ic_arrow_left.svg
+  String get icArrowLeft => 'assets/icons/ic_arrow_left.svg';
+
+  /// File path: assets/icons/ic_arrow_right.svg
+  String get icArrowRight => 'assets/icons/ic_arrow_right.svg';
+
+  /// File path: assets/icons/ic_arrow_up.svg
+  String get icArrowUp => 'assets/icons/ic_arrow_up.svg';
+
   /// File path: assets/icons/ic_device_selected.svg
   String get icDeviceSelected => 'assets/icons/ic_device_selected.svg';
 
