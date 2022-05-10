@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
         },
         children: const [
           HomeV1Page(),
-          VoicePage(),
           DeviceControlPage(),
+          VoicePage(),
           SettingsPage()
         ],
       ),

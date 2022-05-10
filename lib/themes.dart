@@ -42,9 +42,11 @@ ThemeData light(BuildContext context) {
           ),
           color: Colors.white),
       appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstants.primaryColor,
           iconTheme: IconThemeData(color: Colors.orange),
           centerTitle: true,
+          titleTextStyle: TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
           elevation: 0),
       textTheme: TextTheme(
           button: ThemeData.light().textTheme.button!.copyWith(
