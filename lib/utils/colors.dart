@@ -17,7 +17,7 @@ class ColorConstants {
       Color(0xffffa300),
     ],
   );
-  static const Color primaryColor = Color(0xFFFF4800);
+  static const Color primaryColor = Color(0xFF3186A0);
   static const Color neutral3Color = Color(0xFFDADADA);
   static const Color primaryColorBlue = Color(0xff0063f7);
   static const Color primaryColorBlueHover = Color(0xff8ab3ff);

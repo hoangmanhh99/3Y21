@@ -43,7 +43,7 @@ ThemeData light(BuildContext context) {
           color: Colors.white),
       appBarTheme: const AppBarTheme(
           backgroundColor: ColorConstants.primaryColor,
-          iconTheme: IconThemeData(color: Colors.orange),
+          iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
           titleTextStyle: TextStyle(
               color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
@@ -158,7 +158,7 @@ ThemeData light(BuildContext context) {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(UIConstants.borderRadius_8),
                 side: const BorderSide(color: Colors.transparent)),
-            primary: Colors.transparent,
+            primary: ColorConstants.primaryColor,
             elevation: 0),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(

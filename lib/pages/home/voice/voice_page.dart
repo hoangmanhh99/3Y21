@@ -1,12 +1,14 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/pages/home/voice/alan_voice_page.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
-import '../../utils/app_constants.dart';
+import '../../../utils/app_constants.dart';
 import 'dart:developer' as developer;
 
 class VoicePage extends StatefulWidget {
-  static const ROUTE_NAME = "VoicePage";
+  static const path = "VoicePage";
   const VoicePage({Key? key}) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class _VoicePageState extends State<VoicePage> {
   void initState() {
     super.initState();
     _speechToText = SpeechToText();
-    _initSpeech();
+    // _initSpeech();
   }
 
   void _initSpeech() async {
@@ -102,6 +104,21 @@ class _VoicePageState extends State<VoicePage> {
                       ? 'Tap the microphone to start listening...'
                       : 'Speech not available',
               style: Theme.of(context).textTheme.bodyText1,
+            ),
+            kSpacingHeight48,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AlanVoicePage.path);
+                  },
+                  child: Text(
+                    'Alan Voice',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.white),
+                  )),
             )
           ],
         ),
@@ -116,8 +133,8 @@ class _VoicePageState extends State<VoicePage> {
         repeat: true,
         child: FloatingActionButton(
           onPressed: () async {
-            // _listen();
-            _speechToText.isNotListening ? _startListening : _stopListening;
+            _listen();
+            // _speechToText.isNotListening ? _startListening : _stopListening;
           },
           child: Icon(_speechToText.isListening ? Icons.mic : Icons.mic_none),
         ),

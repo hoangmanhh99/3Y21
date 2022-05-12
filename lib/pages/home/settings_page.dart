@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/blocs/auth/auth_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
-  static const ROUTE_NAME = "SettingsPage";
+  static const path = "SettingsPage";
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
@@ -12,7 +12,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  static const TAG = "SettingsPage";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

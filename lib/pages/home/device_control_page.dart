@@ -6,7 +6,7 @@ import '../../utils/app_constants.dart';
 import 'dart:developer' as developer;
 
 class DeviceControlPage extends StatefulWidget {
-  static const ROUTE_NAME = "DeviceControlPage";
+  static const path = "DeviceControlPage";
   const DeviceControlPage({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +14,6 @@ class DeviceControlPage extends StatefulWidget {
 }
 
 class _DeviceControlPageState extends State<DeviceControlPage> {
-  static const TAG = "DeviceControlPage";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
