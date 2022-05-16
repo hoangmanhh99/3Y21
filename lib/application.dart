@@ -1,12 +1,7 @@
 import 'package:auth_nav/auth_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/data/blocs/auth/auth_bloc.dart';
-import 'package:flutter_application/data/datasources/local/local_service.dart';
-import 'package:flutter_application/pages/authentication/authentication_navigator.dart';
-import 'package:flutter_application/pages/main/main_navigator.dart';
-import 'package:flutter_application/pages/splash/app_splash_page.dart';
 import 'package:get_it/get_it.dart';
-import 'themes.dart';
+import 'lib.dart';
 
 class Application extends StatefulWidget {
   const Application({Key? key}) : super(key: key);

@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:connectivity/connectivity.dart' show Connectivity, ConnectivityResult;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application/data/blocs/auth/auth.dart';
-import 'package:flutter_application/utils/colors.dart';
-import 'package:flutter_application/widgets/design_system/formfield/formfield.dart';
-import 'package:flutter_application/widgets/my_elevated_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
+import '../../../data/data.dart';
+import '../../../utils/colors.dart';
+import '../../../widgets/design_system/formfield/formfield.dart';
+import '../../../widgets/my_elevated_button.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);

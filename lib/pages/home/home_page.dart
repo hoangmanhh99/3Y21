@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application/data/blocs/auth/auth.dart';
-import 'package:flutter_application/lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../pages.dart';
 import 'app_bottom_navigation.dart';
 
 class HomePage extends StatefulWidget {
   final int initialPage;
 
-  HomePage(this.initialPage);
+  const HomePage(this.initialPage, {Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();

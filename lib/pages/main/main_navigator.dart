@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application/pages/home/voice/alan_voice_page.dart';
-import 'package:flutter_application/pages/home/voice/voice_page.dart';
-import 'package:flutter_application/pages/home/device_control_page.dart';
-import 'package:flutter_application/pages/home/home_page.dart';
-import 'package:flutter_application/pages/home/home_v1_page.dart';
-import 'package:flutter_application/pages/home/settings_page.dart';
-import 'package:flutter_application/utils/navigator_support.dart';
+import '../../utils/utils.dart';
+import '../home/voice/alan_voice_page.dart';
+import '../pages.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);

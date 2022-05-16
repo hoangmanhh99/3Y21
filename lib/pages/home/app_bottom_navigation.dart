@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_application/gen/assets.gen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../gen/gen.dart';
 import '../../utils/app_constants.dart';
 
 class AppBottomNavigation extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:flutter_application/data/dto/dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../data.dart';
 part 'auth_state.freezed.dart';
 
 @freezed

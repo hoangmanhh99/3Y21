@@ -1,10 +1,9 @@
 import 'package:auth_nav/auth_nav.dart';
-import 'package:flutter_application/data/blocs/auth/auth_state.dart';
-import 'package:flutter_application/data/dto/dto.dart';
-import 'package:flutter_application/data/repositories/repositories.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:oauth2_dio/oauth2_dio.dart';
+
+import '../../data.dart';
 
 class AuthBloc extends Cubit<AuthState> {
   final AuthNavigationBloc authNavigationBloc = GetIt.instance.get();

@@ -1,11 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/pages/home/voice/alan_voice_page.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import '../../../utils/app_constants.dart';
 import 'dart:developer' as developer;
+
+import 'alan_voice_page.dart';
 
 class VoicePage extends StatefulWidget {
   static const path = "VoicePage";
@@ -16,7 +16,6 @@ class VoicePage extends StatefulWidget {
 }
 
 class _VoicePageState extends State<VoicePage> {
-  static const TAG = "VoicePage";
   late SpeechToText _speechToText;
   bool _speechEnabled = false;
   String _lastWords = '';

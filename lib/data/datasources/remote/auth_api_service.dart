@@ -1,5 +1,4 @@
-import 'package:flutter_application/data/datasources/remote/base_api_service.dart';
-import 'package:flutter_application/data/dto/dto.dart';
+import '../../data.dart';
 
 class AuthApiService extends BaseApiService {
   Future<AuthenticationDto> login(String userName, String passWord) async {
