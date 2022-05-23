@@ -21,7 +21,7 @@ class _DeviceControlPageState extends State<DeviceControlPage> {
         title: const Text('Device Control'),
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 32),
+        padding: const EdgeInsets.only(top: 32),
         child: Column(
           children: [
             Row(
