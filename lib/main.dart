@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auth_nav/auth_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'data/blocs/auth/auth_bloc.dart';
 import 'initialize_dependencies.dart';
 
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDependencies();
@@ -19,3 +22,13 @@ void main() async {
     child: const Application(),
   ));
 }
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+

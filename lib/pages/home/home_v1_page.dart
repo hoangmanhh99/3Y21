@@ -13,30 +13,21 @@ class HomeV1Page extends StatefulWidget {
 }
 
 class _HomeV1PageState extends State<HomeV1Page> {
-  // IO.Socket? socket;
+  late IO.Socket socket;
 
   @override
   void initState() {
     super.initState();
+    socket = IO.io('http://192.168.1.12:3000',
+        IO.OptionBuilder().setTransports(['websocket']).build());
     connect();
-    setState(() {});
   }
 
   void connect() {
-    IO.Socket socket = IO.io(
-        'http://192.168.1.12:5000',
-        IO.OptionBuilder()
-            .setTransports(['websocket'])
-            .disableAutoConnect()
-            .build()
-        //     <String, dynamic>{
-        //   "transports": ["websocket"],
-        //   "autoConnect": false,
-        // }
-        );
-    socket.connect();
-    socket.onConnect((data) => print("Connected"));
-    print(socket.connected);
+    developer.log('connecting', name: '');
+    socket.onConnect((data) => print('Connection establised'));
+    socket.onConnectError((data) => print('Connect Error: $data'));
+    socket.onDisconnect((data) => print('Socket server disconnected'));
   }
 
   @override
