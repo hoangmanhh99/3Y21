@@ -110,19 +110,7 @@ const kSpacingWidth16 = SizedBox(
   width: 16,
 );
 
-class ColorConstants {
-  static const Color primaryColor = Color(0xffFCAF17);
-  static const Color grayColor = Color(0xfff2f2f2);
-  static const Color secondGrayColor = Color(0xff7a7a9d);
-  static const Color thirdGrayColor = Color(0xffeef2fe);
-  static const Color fourGrayColor = Color(0xff8a8a8f);
-
-  static const Color backgroundTextFieldGrayColor = Color(0xfff8f8f8);
-  static const Color textButtonColor = Color(0xff11006f);
-  static const Color blackColor = Color(0xff000000);
-
-  static const Color whiteBorderColor = Color(0xfff2f2f2);
-
-  static const Color textYellow = Color(0xffFCAF17);
+class NetworkConstants {
+  static String ipAddress = "ipAddress";
 }
 

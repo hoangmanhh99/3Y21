@@ -5,6 +5,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../../utils/app_constants.dart';
 import 'dart:developer' as developer;
 
+import '../../../utils/colors.dart';
 import 'alan_voice_page.dart';
 
 class VoicePage extends StatefulWidget {

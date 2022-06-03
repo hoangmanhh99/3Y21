@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:connectivity/connectivity.dart' show Connectivity, ConnectivityResult;
+import 'package:connectivity/connectivity.dart'
+    show Connectivity, ConnectivityResult;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wifi_info_flutter/wifi_info_flutter.dart';
+import 'package:network_info_plus/network_info_plus.dart';
+import 'package:project3y21/utils/app_constants.dart';
 import '../../../data/data.dart';
 import '../../../utils/colors.dart';
 import '../../../widgets/design_system/formfield/formfield.dart';
 import '../../../widgets/my_elevated_button.dart';
+import 'dart:developer' as dev;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -27,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
   String _ssidWifi = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  final WifiInfo _wifiInfo = WifiInfo();
+  final NetworkInfo _networkInfo = NetworkInfo();
 
   bool isBtnActive = false;
   bool myAutoValidate = false;
@@ -106,7 +109,9 @@ class _SignInPageState extends State<SignInPage> {
                     style: Theme.of(context).textTheme.headline4,
                     textAlign: TextAlign.center,
                   ),
-                  Text('SSID: $_ssidWifi', style: Theme.of(context).textTheme.headline4),
+                  Text('SSID: $_ssidWifi',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline4),
                   const SizedBox(
                     height: 60,
                   ),
@@ -191,6 +196,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    // _wifiInfo.requestLocationServiceAuthorization();
     switch (result) {
       case ConnectivityResult.wifi:
         String? wifiName, wifiBSSID, wifiIP;
@@ -198,18 +204,18 @@ class _SignInPageState extends State<SignInPage> {
         try {
           if (!kIsWeb && Platform.isIOS) {
             LocationAuthorizationStatus status =
-            await _wifiInfo.getLocationServiceAuthorization();
+                await _networkInfo.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
-              status = await _wifiInfo.requestLocationServiceAuthorization();
+              status = await _networkInfo.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiName = await _wifiInfo.getWifiName();
+              wifiName = await _networkInfo.getWifiName();
             } else {
-              wifiName = await _wifiInfo.getWifiName();
+              wifiName = await _networkInfo.getWifiName();
             }
           } else {
-            wifiName = await _wifiInfo.getWifiName();
+            wifiName = await _networkInfo.getWifiName();
           }
         } on PlatformException catch (e) {
           print(e.toString());
@@ -219,18 +225,18 @@ class _SignInPageState extends State<SignInPage> {
         try {
           if (!kIsWeb && Platform.isIOS) {
             LocationAuthorizationStatus status =
-            await _wifiInfo.getLocationServiceAuthorization();
+                await _networkInfo.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
-              status = await _wifiInfo.requestLocationServiceAuthorization();
+              status = await _networkInfo.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiBSSID = await _wifiInfo.getWifiBSSID();
+              wifiBSSID = await _networkInfo.getWifiBSSID();
             } else {
-              wifiBSSID = await _wifiInfo.getWifiBSSID();
+              wifiBSSID = await _networkInfo.getWifiBSSID();
             }
           } else {
-            wifiBSSID = await _wifiInfo.getWifiBSSID();
+            wifiBSSID = await _networkInfo.getWifiBSSID();
           }
         } on PlatformException catch (e) {
           print(e.toString());
@@ -238,7 +244,7 @@ class _SignInPageState extends State<SignInPage> {
         }
 
         try {
-          wifiIP = await _wifiInfo.getWifiIP();
+          wifiIP = await _networkInfo.getWifiIP();
         } on PlatformException catch (e) {
           print(e.toString());
           wifiIP = "Failed to get Wifi IP";
@@ -246,8 +252,12 @@ class _SignInPageState extends State<SignInPage> {
 
         setState(() {
           _connectionStatus = 'Connected';
-          _ssidWifi = "$wifiBSSID $wifiIP $wifiName";
+          _ssidWifi = "$wifiBSSID \n $wifiIP \n $wifiName";
+          NetworkConstants.ipAddress = wifiIP ?? "";
+          dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
         });
+        // final prefs = await SharedPreferences.getInstance();
+        // prefs.setString(NetworkConstants.ipAddress, wifiIP ?? "");
         break;
       default:
         setState(() {

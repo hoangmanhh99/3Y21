@@ -1,8 +1,10 @@
-import 'package:control_pad/control_pad.dart';
 import 'package:flutter/material.dart';
+import 'package:project3y21/utils/app_constants.dart';
 import 'package:project3y21/utils/colors.dart';
-import 'dart:developer' as developer;
+import 'dart:developer' as dev;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../../widgets/control_pad/views/joystick_view.dart';
 
 class HomeV1Page extends StatefulWidget {
   static const path = "HomeV1Page";
@@ -18,13 +20,15 @@ class _HomeV1PageState extends State<HomeV1Page> {
   @override
   void initState() {
     super.initState();
-    socket = IO.io('http://192.168.1.12:3000',
+    /// 192.168.1.12
+    dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
+    socket = IO.io('http://10.9.11.160:3000',
         IO.OptionBuilder().setTransports(['websocket']).build());
     connect();
   }
 
   void connect() {
-    developer.log('connecting', name: '');
+    dev.log('connecting', name: '');
     socket.onConnect((data) => print('Connection establised'));
     socket.onConnectError((data) => print('Connect Error: $data'));
     socket.onDisconnect((data) => print('Socket server disconnected'));
@@ -36,8 +40,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
       color: Colors.white,
       child: JoystickView(
         onDirectionChanged: ((degrees, distance) {
-          developer.log("Derece ${degrees}");
-          developer.log("mesafe  ${distance}");
+          dev.log("Derece ${degrees}");
+          dev.log("mesafe  ${distance}");
         }),
       ),
     );
