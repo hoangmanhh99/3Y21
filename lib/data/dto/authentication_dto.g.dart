@@ -6,12 +6,11 @@ part of 'authentication_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AuthenticationDto _$AuthenticationDtoFromJson(Map<String, dynamic> json) {
-  return AuthenticationDto(
-    json['accessToken'] as String,
-    json['refreshToken'] as String,
-  );
-}
+AuthenticationDto _$AuthenticationDtoFromJson(Map<String, dynamic> json) =>
+    AuthenticationDto(
+      json['accessToken'] as String,
+      json['refreshToken'] as String,
+    );
 
 Map<String, dynamic> _$AuthenticationDtoToJson(AuthenticationDto instance) =>
     <String, dynamic>{

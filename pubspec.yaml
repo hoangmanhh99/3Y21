@@ -36,6 +36,7 @@ dependencies:
   avatar_glow: 2.0.2
   socket_io_client: 2.0.0-beta.4-nullsafety.0
   firebase_database: 9.0.15
+  flutter_launcher_icons: 0.9.2
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +46,14 @@ dev_dependencies:
   json_serializable:
   freezed:
   flutter_lints: ^1.0.4
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo_3y21.png"
+
 flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/images/

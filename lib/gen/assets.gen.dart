@@ -49,6 +49,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_voice_unselected.svg
   String get icVoiceUnselected => 'assets/icons/ic_voice_unselected.svg';
 
+  /// File path: assets/icons/logo_3y21.png
+  AssetGenImage get logo3y21 =>
+      const AssetGenImage('assets/icons/logo_3y21.png');
+
   /// File path: assets/icons/wifi.svg
   String get wifi => 'assets/icons/wifi.svg';
 
@@ -56,10 +60,19 @@ class $AssetsIconsGen {
   String get wifiOff => 'assets/icons/wifi_off.svg';
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/round_home_black_24dp.png
+  AssetGenImage get roundHomeBlack24dp =>
+      const AssetGenImage('assets/images/round_home_black_24dp.png');
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage extends AssetImage {

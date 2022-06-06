@@ -1,5 +1,7 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'auth_state.dart';
 
@@ -10,25 +12,7 @@ part of 'auth_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$AuthStateTearOff {
-  const _$AuthStateTearOff();
-
-  AuthStateAuthorized authorized(ProfileDto profileDto) {
-    return AuthStateAuthorized(
-      profileDto,
-    );
-  }
-
-  AuthStateUnAuthorized unAuthorized() {
-    return const AuthStateUnAuthorized();
-  }
-}
-
-/// @nodoc
-const $AuthState = _$AuthStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AuthState {
@@ -36,6 +20,12 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function(ProfileDto profileDto) authorized,
     required TResult Function() unAuthorized,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(ProfileDto profileDto)? authorized,
+    TResult Function()? unAuthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -49,6 +39,12 @@ mixin _$AuthState {
   TResult map<TResult extends Object?>({
     required TResult Function(AuthStateAuthorized value) authorized,
     required TResult Function(AuthStateUnAuthorized value) unAuthorized,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthStateAuthorized value)? authorized,
+    TResult Function(AuthStateUnAuthorized value)? unAuthorized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -123,15 +119,15 @@ class _$AuthStateAuthorized implements AuthStateAuthorized {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is AuthStateAuthorized &&
-            (identical(other.profileDto, profileDto) ||
-                const DeepCollectionEquality()
-                    .equals(other.profileDto, profileDto)));
+        (other.runtimeType == runtimeType &&
+            other is AuthStateAuthorized &&
+            const DeepCollectionEquality()
+                .equals(other.profileDto, profileDto));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(profileDto);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(profileDto));
 
   @JsonKey(ignore: true)
   @override
@@ -145,6 +141,15 @@ class _$AuthStateAuthorized implements AuthStateAuthorized {
     required TResult Function() unAuthorized,
   }) {
     return authorized(profileDto);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(ProfileDto profileDto)? authorized,
+    TResult Function()? unAuthorized,
+  }) {
+    return authorized?.call(profileDto);
   }
 
   @override
@@ -171,6 +176,15 @@ class _$AuthStateAuthorized implements AuthStateAuthorized {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthStateAuthorized value)? authorized,
+    TResult Function(AuthStateUnAuthorized value)? unAuthorized,
+  }) {
+    return authorized?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthStateAuthorized value)? authorized,
     TResult Function(AuthStateUnAuthorized value)? unAuthorized,
@@ -184,7 +198,7 @@ class _$AuthStateAuthorized implements AuthStateAuthorized {
 }
 
 abstract class AuthStateAuthorized implements AuthState {
-  const factory AuthStateAuthorized(ProfileDto profileDto) =
+  const factory AuthStateAuthorized(final ProfileDto profileDto) =
       _$AuthStateAuthorized;
 
   ProfileDto get profileDto => throw _privateConstructorUsedError;
@@ -224,7 +238,8 @@ class _$AuthStateUnAuthorized implements AuthStateUnAuthorized {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is AuthStateUnAuthorized);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is AuthStateUnAuthorized);
   }
 
   @override
@@ -237,6 +252,15 @@ class _$AuthStateUnAuthorized implements AuthStateUnAuthorized {
     required TResult Function() unAuthorized,
   }) {
     return unAuthorized();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(ProfileDto profileDto)? authorized,
+    TResult Function()? unAuthorized,
+  }) {
+    return unAuthorized?.call();
   }
 
   @override
@@ -259,6 +283,15 @@ class _$AuthStateUnAuthorized implements AuthStateUnAuthorized {
     required TResult Function(AuthStateUnAuthorized value) unAuthorized,
   }) {
     return unAuthorized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthStateAuthorized value)? authorized,
+    TResult Function(AuthStateUnAuthorized value)? unAuthorized,
+  }) {
+    return unAuthorized?.call(this);
   }
 
   @override
