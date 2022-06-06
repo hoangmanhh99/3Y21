@@ -121,7 +121,7 @@ class JoystickView extends StatelessWidget {
             },
             onPanUpdate: (details) {
               _callbackTimestamp = _processGesture(actualSize, actualSize / 2,
-                  details.localPosition, _callbackTimestamp!);
+                  details.localPosition, _callbackTimestamp);
               joystickInnerPosition = _calculatePositionOfInnerCircle(
                   lastPosition,
                   innerCircleSize,

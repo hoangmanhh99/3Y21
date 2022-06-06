@@ -16,13 +16,15 @@ class HomeV1Page extends StatefulWidget {
 
 class _HomeV1PageState extends State<HomeV1Page> {
   late IO.Socket socket;
+  String oldDirection = "S";
 
   @override
   void initState() {
     super.initState();
+
     /// 192.168.1.12
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    socket = IO.io('http://10.9.11.160:3000',
+    socket = IO.io('https://arduino-socket-app.herokuapp.com',
         IO.OptionBuilder().setTransports(['websocket']).build());
     connect();
   }
@@ -34,15 +36,79 @@ class _HomeV1PageState extends State<HomeV1Page> {
     socket.onDisconnect((data) => print('Socket server disconnected'));
   }
 
+  String? getDirection(double degrees, double distance) {
+    if (distance != 0.00) {
+      if ((degrees >= 0 && degrees < 30) ||
+          (degrees >= 330 && degrees <= 360)) {
+        return "F";
+      } // goAhead
+      if (degrees <= 210 && degrees >= 150) return "B"; // goBack
+      if (degrees <= 120 && degrees >= 60) return "R"; // goRight
+      if (degrees <= 300 && degrees >= 240) return "L"; // goLeft
+      if (degrees < 330 && degrees > 300) return "G"; // goAheadLeft
+      if (degrees < 60 && degrees > 30) return "I"; // goAheadRight
+      if (degrees < 240 && degrees > 210) return "J"; // goBackLeft
+      if (degrees < 150 && degrees > 120) return "H"; // goBackLeft
+    } else {
+      return "S"; // stop
+    }
+    return null;
+  }
+
+  String nameDirection(String direction) {
+    switch (direction) {
+      case "F":
+        return 'Go Ahead';
+      case "B":
+        return "Go Back";
+      case "R":
+        return "Go Right";
+      case "L":
+        return "Go Left";
+      case "G":
+        return "Go Ahead Left";
+      case "I":
+        return "Go Ahead Right";
+      case "J":
+        return "Go Back Right";
+      case "H":
+        return "Go Back Left";
+      default:
+        return "Stop";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    JoystickDirectionCallback? onDirectionChangedMovement(
+        double degrees, double distance) {
+      String? direction = getDirection(degrees, distance);
+      dev.log('$direction');
+      if (oldDirection != direction) {
+        oldDirection = direction ?? "S";
+        setState(() {});
+        socket.emit('direction', direction);
+      }
+      return null;
+    }
+
     return Container(
       color: Colors.white,
-      child: JoystickView(
-        onDirectionChanged: ((degrees, distance) {
-          dev.log("Derece ${degrees}");
-          dev.log("mesafe  ${distance}");
-        }),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          JoystickView(
+            onDirectionChanged: onDirectionChangedMovement,
+          ),
+          Container(
+            padding: const EdgeInsets.only(top: 64),
+            child: Text(
+              nameDirection(oldDirection),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          )
+        ],
       ),
     );
   }
