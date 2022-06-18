@@ -27,9 +27,9 @@ class _MainNavigatorState extends State<MainNavigator> {
             return MaterialPageRoute(builder: (context) => HomePage(3));
           case SettingsPage.path:
             return MaterialPageRoute(builder: (context) => HomePage(4));
-          case AlanVoicePage.path:
-            return MaterialPageRoute(
-                builder: (context) => const AlanVoicePage());
+          // case AlanVoicePage.path:
+          //   return MaterialPageRoute(
+          //       builder: (context) => const AlanVoicePage());
         }
       },
     );

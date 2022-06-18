@@ -11,13 +11,13 @@ class _AppStateState extends State<AppState> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance?.removeObserver(this);
   }
 
   @override
@@ -32,7 +32,7 @@ class _AppStateState extends State<AppState> with WidgetsBindingObserver {
     return WillPopScope(
         child: Scaffold(),
         onWillPop: () async {
-          WidgetsBinding.instance.removeObserver(this);
+          WidgetsBinding.instance?.removeObserver(this);
           return true;
         });
   }

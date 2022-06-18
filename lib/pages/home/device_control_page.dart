@@ -14,6 +14,7 @@ class DeviceControlPage extends StatefulWidget {
 }
 
 class _DeviceControlPageState extends State<DeviceControlPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

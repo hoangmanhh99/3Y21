@@ -17,12 +17,14 @@ class HomeV1Page extends StatefulWidget {
 class _HomeV1PageState extends State<HomeV1Page> {
   late IO.Socket socket;
   String oldDirection = "S";
+  bool onLed = false;
 
   @override
   void initState() {
     super.initState();
 
-    /// 192.168.1.12
+    /// http://localhost:3000
+    /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
     socket = IO.io('https://arduino-socket-app.herokuapp.com',
         IO.OptionBuilder().setTransports(['websocket']).build());
@@ -78,6 +80,10 @@ class _HomeV1PageState extends State<HomeV1Page> {
     }
   }
 
+  onLedChange(bool onLed) {
+    socket.emit('led', onLed ? 1 : 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     JoystickDirectionCallback? onDirectionChangedMovement(
@@ -107,6 +113,32 @@ class _HomeV1PageState extends State<HomeV1Page> {
               nameDirection(oldDirection),
               style: Theme.of(context).textTheme.bodyText1,
             ),
+          ),
+          kSpacingHeight48,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    onLed = !onLed;
+                  });
+                  onLedChange(onLed);
+                },
+                style: (onLed)
+                    ? ElevatedButton.styleFrom(
+                        primary: ColorConstants.primaryColor,
+                        side: const BorderSide(
+                            color: ColorConstants.primaryColor))
+                    : ElevatedButton.styleFrom(
+                        primary: Colors.transparent,
+                        side: const BorderSide(
+                            color: ColorConstants.primaryColor)),
+                child: Text(
+                  'Led ${onLed ? "ON" : "OFF"}',
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                      color:
+                          onLed ? Colors.white : ColorConstants.primaryColor),
+                )),
           )
         ],
       ),

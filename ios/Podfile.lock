@@ -1,6 +1,4 @@
 PODS:
-  - alan_voice (0.0.1):
-    - Flutter
   - connectivity (0.0.1):
     - Flutter
     - Reachability
@@ -45,8 +43,6 @@ PODS:
   - nanopb/encode (2.30908.0)
   - network_info_plus (0.0.1):
     - Flutter
-  - package_info (0.0.1):
-    - Flutter
   - PromisesObjC (2.1.0)
   - Reachability (3.2)
   - shared_preferences_ios (0.0.1):
@@ -57,13 +53,11 @@ PODS:
   - Try (2.1.1)
 
 DEPENDENCIES:
-  - alan_voice (from `.symlinks/plugins/alan_voice/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
   - network_info_plus (from `.symlinks/plugins/network_info_plus/ios`)
-  - package_info (from `.symlinks/plugins/package_info/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - speech_to_text (from `.symlinks/plugins/speech_to_text/ios`)
 
@@ -82,8 +76,6 @@ SPEC REPOS:
     - Try
 
 EXTERNAL SOURCES:
-  alan_voice:
-    :path: ".symlinks/plugins/alan_voice/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
   firebase_core:
@@ -94,15 +86,12 @@ EXTERNAL SOURCES:
     :path: Flutter
   network_info_plus:
     :path: ".symlinks/plugins/network_info_plus/ios"
-  package_info:
-    :path: ".symlinks/plugins/package_info/ios"
   shared_preferences_ios:
     :path: ".symlinks/plugins/shared_preferences_ios/ios"
   speech_to_text:
     :path: ".symlinks/plugins/speech_to_text/ios"
 
 SPEC CHECKSUMS:
-  alan_voice: 3299393a953a060d0e937776ba6efcf5c4a61304
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
   firebase_core: 318de541b0e61d3f24262982a3f0b54afe72439b
@@ -116,13 +105,12 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   network_info_plus: b78876159360f5580608c2cea620d6ceffabd0ad
-  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe
   Try: 5ef669ae832617b3cee58cb2c6f99fb767a4ff96
 
-PODFILE CHECKSUM: ce13d36744da294d67f8e460dbb7aed7c09bd7f4
+PODFILE CHECKSUM: ad4a91b57954b41d8c02f71ba4bb34ca16b7f34d
 
 COCOAPODS: 1.11.3

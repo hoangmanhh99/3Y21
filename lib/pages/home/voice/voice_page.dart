@@ -110,7 +110,7 @@ class _VoicePageState extends State<VoicePage> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AlanVoicePage.path);
+                    // Navigator.pushNamed(context, AlanVoicePage.path);
                   },
                   child: Text(
                     'Alan Voice',
