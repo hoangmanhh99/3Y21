@@ -26,7 +26,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
     /// http://localhost:3000
     /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    socket = IO.io('https://arduino-socket-app.herokuapp.com',
+    socket = IO.io('http://192.168.1.12:3000',
         IO.OptionBuilder().setTransports(['websocket']).build());
     connect();
   }
