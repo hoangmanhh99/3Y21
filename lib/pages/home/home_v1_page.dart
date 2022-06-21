@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project3y21/utils/app_constants.dart';
 import 'package:project3y21/utils/colors.dart';
+import 'package:project3y21/utils/share_preference_utils.dart';
 import 'dart:developer' as dev;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -18,6 +20,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
   late IO.Socket socket;
   String oldDirection = "S";
   bool onLed = false;
+  String address =
+      SharedPreferencesUtils.getData(NetworkConstants.addressServer);
 
   @override
   void initState() {
@@ -26,16 +30,28 @@ class _HomeV1PageState extends State<HomeV1Page> {
     /// http://localhost:3000
     /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    socket = IO.io('http://192.168.1.12:3000',
-        IO.OptionBuilder().setTransports(['websocket']).build());
+    socket =
+        IO.io(address, IO.OptionBuilder().setTransports(['websocket']).build());
     connect();
   }
 
   void connect() {
     dev.log('connecting', name: '');
-    socket.onConnect((data) => print('Connection establised'));
-    socket.onConnectError((data) => print('Connect Error: $data'));
-    socket.onDisconnect((data) => print('Socket server disconnected'));
+    socket.onConnect((data) {
+      print('Connection established');
+      Fluttertoast.showToast(
+          msg: 'Connection established', gravity: ToastGravity.CENTER);
+    });
+    socket.onConnectError((data) {
+      print('Connect Error: $data');
+      Fluttertoast.showToast(
+          msg: 'Connect Error', gravity: ToastGravity.CENTER);
+    });
+    socket.onDisconnect((data) {
+      print('Socket server disconnected');
+      Fluttertoast.showToast(
+          msg: 'Socket server disconnected', gravity: ToastGravity.CENTER);
+    });
   }
 
   String? getDirection(double degrees, double distance) {
@@ -139,6 +155,11 @@ class _HomeV1PageState extends State<HomeV1Page> {
                       color:
                           onLed ? Colors.white : ColorConstants.primaryColor),
                 )),
+          ),
+          kSpacingHeight24,
+          Text(
+            address,
+            style: Theme.of(context).textTheme.bodyText1,
           )
         ],
       ),

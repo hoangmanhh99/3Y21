@@ -10,6 +10,7 @@ import 'package:network_info_plus/network_info_plus.dart';
 import 'package:project3y21/utils/app_constants.dart';
 import '../../../data/data.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/share_preference_utils.dart';
 import '../../../widgets/design_system/formfield/formfield.dart';
 import '../../../widgets/my_elevated_button.dart';
 import 'dart:developer' as dev;
@@ -32,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   final NetworkInfo _networkInfo = NetworkInfo();
 
-  bool isBtnActive = false;
+  bool isBtnActive = true;
   bool myAutoValidate = false;
   isTextFieldEmpty() {
     if (_ipAddressController.text.isNotEmpty &&
@@ -53,12 +54,12 @@ class _SignInPageState extends State<SignInPage> {
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    _ipAddressController.addListener(() {
-      isTextFieldEmpty();
-    });
-    _portController.addListener(() {
-      isTextFieldEmpty();
-    });
+    // _ipAddressController.addListener(() {
+    //   isTextFieldEmpty();
+    // });
+    // _portController.addListener(() {
+    //   isTextFieldEmpty();
+    // });
   }
 
   @override
@@ -170,20 +171,38 @@ class _SignInPageState extends State<SignInPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  kSpacingHeight24,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: MyElevatedButton("CONNECT",
+                    child: MyElevatedButton("CONNECT WITH HEROKU",
                         onPressed: (!isBtnActive)
                             ? null
                             : () async {
-                                if (_formKey.currentState!.validate()) {
+                                // if (_formKey.currentState!.validate()) {
+                                  SharedPreferencesUtils.setData(
+                                      NetworkConstants.addressServer,
+                                      'https://arduino-socket-app.herokuapp.com');
                                   context
                                       .read<AuthBloc>()
                                       .login("username", "password");
-                                }
+                                // }
+                              }),
+                  ),
+                  kSpacingHeight24,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: MyElevatedButton("CONNECT WITH LOCAL",
+                        onPressed: (!isBtnActive)
+                            ? null
+                            : () async {
+                                // if (_formKey.currentState!.validate()) {
+                                  SharedPreferencesUtils.setData(
+                                      NetworkConstants.addressServer,
+                                      'http://192.168.1.12:3000');
+                                  context
+                                      .read<AuthBloc>()
+                                      .login("username", "password");
+                                // }
                               }),
                   ),
                 ],

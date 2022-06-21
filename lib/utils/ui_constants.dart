@@ -57,3 +57,11 @@ const kSpacingHeight16 = SizedBox(height: 16,);
 const kSpacingHeight24 = SizedBox(height: 24,);
 
 const kSpacingHeight36 = SizedBox(height: 36,);
+
+const kSpacingWidth12 = SizedBox(width: 12,);
+
+const kSpacingWidth16 = SizedBox(width: 16,);
+
+const kSpacingWidth24 = SizedBox(width: 24,);
+
+const kSpacingWidth36 = SizedBox(width: 36,);
