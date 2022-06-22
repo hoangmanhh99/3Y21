@@ -30,8 +30,12 @@ class _HomeV1PageState extends State<HomeV1Page> {
     /// http://localhost:3000
     /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    socket =
-        IO.io(address, IO.OptionBuilder().setTransports(['websocket']).build());
+    socket = IO.io(
+        address,
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .enableForceNew()
+            .build());
     connect();
   }
 
@@ -98,6 +102,12 @@ class _HomeV1PageState extends State<HomeV1Page> {
 
   onLedChange(bool onLed) {
     socket.emit('led', onLed ? 1 : 0);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    socket.disconnect();
   }
 
   @override
