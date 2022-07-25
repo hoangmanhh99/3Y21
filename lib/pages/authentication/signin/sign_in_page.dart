@@ -54,6 +54,7 @@ class _SignInPageState extends State<SignInPage> {
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _portController.text = "3000";
     // _ipAddressController.addListener(() {
     //   isTextFieldEmpty();
     // });
@@ -160,13 +161,13 @@ class _SignInPageState extends State<SignInPage> {
                           inputFormatters: [
                             FilteringTextInputFormatter.deny('')
                           ],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please input port';
-                            } else {
-                              return null;
-                            }
-                          },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please input port';
+                          //   } else {
+                          //     return null;
+                          //   }
+                          // },
                         ),
                       ],
                     ),
@@ -179,12 +180,12 @@ class _SignInPageState extends State<SignInPage> {
                             ? null
                             : () async {
                                 // if (_formKey.currentState!.validate()) {
-                                  SharedPreferencesUtils.setData(
-                                      NetworkConstants.addressServer,
-                                      'https://arduino-socket-app.herokuapp.com');
-                                  context
-                                      .read<AuthBloc>()
-                                      .login("username", "password");
+                                SharedPreferencesUtils.setData(
+                                    NetworkConstants.addressServer,
+                                    'https://arduino-socket-app.herokuapp.com');
+                                context
+                                    .read<AuthBloc>()
+                                    .login("username", "password");
                                 // }
                               }),
                   ),
@@ -195,14 +196,14 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: (!isBtnActive)
                             ? null
                             : () async {
-                                // if (_formKey.currentState!.validate()) {
+                                if (_formKey.currentState!.validate()) {
                                   SharedPreferencesUtils.setData(
                                       NetworkConstants.addressServer,
-                                      'http://192.168.1.12:3000');
+                                      'http://${_ipAddressController.text}:${_portController.text}');
                                   context
                                       .read<AuthBloc>()
                                       .login("username", "password");
-                                // }
+                                }
                               }),
                   ),
                 ],
