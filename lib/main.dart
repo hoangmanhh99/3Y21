@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'application.dart';
 import 'data/blocs/auth/auth_bloc.dart';
 import 'initialize_dependencies.dart';
+import 'package:dcdg/dcdg.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
