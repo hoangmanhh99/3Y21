@@ -39,29 +39,3 @@ class UIConstants {
   static const double iconSize_32 = 32;
   static const double iconSize_36 = 36;
 }
-const kPadding = {
-  0:  EdgeInsets.symmetric(
-      horizontal: 32, vertical: 0
-  ),
-  1:  EdgeInsets.symmetric(
-      horizontal: 24, vertical: 33
-  ),
-  2:  EdgeInsets.symmetric(
-      horizontal: 24, vertical: 0
-  )
-};
-const kSpacingHeight12 = SizedBox(height: 12,);
-
-const kSpacingHeight16 = SizedBox(height: 16,);
-
-const kSpacingHeight24 = SizedBox(height: 24,);
-
-const kSpacingHeight36 = SizedBox(height: 36,);
-
-const kSpacingWidth12 = SizedBox(width: 12,);
-
-const kSpacingWidth16 = SizedBox(width: 16,);
-
-const kSpacingWidth24 = SizedBox(width: 24,);
-
-const kSpacingWidth36 = SizedBox(width: 36,);

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:auth_nav/auth_nav.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'lib.dart';
 

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../utils/utils.dart';
+import '../../widgets/widgets.dart';
 import '../pages.dart';
 
 class AuthenticationNavigator extends StatefulWidget {
@@ -11,6 +15,12 @@ class AuthenticationNavigator extends StatefulWidget {
 }
 
 class _AuthenticationNavigatorState extends State<AuthenticationNavigator> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return NavigatorSupport(

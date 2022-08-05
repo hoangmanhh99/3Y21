@@ -60,7 +60,7 @@ class _AppBottomNavigationState extends State<AppBottomNavigation> {
                   icon: (currentIndex == 1)
                       ? Assets.icons.icDeviceSelected
                       : Assets.icons.icDeviceUnselected,
-                  title: 'Device',
+                  title: 'Guides',
                   currentIndex: currentIndex,
                 ),
               ),

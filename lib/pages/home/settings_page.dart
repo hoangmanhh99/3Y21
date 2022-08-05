@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project3y21/utils/utils.dart';
 
 import '../../data/blocs/auth/auth_bloc.dart';
+import '../../widgets/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
   static const path = "SettingsPage";
@@ -15,12 +17,62 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            onPressed: () async {
-              context.read<AuthBloc>().logout();
-            },
-            child: const Text('Log out')),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+                height: 90,
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                    color: ColorConstants.primaryColor,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(16))),
+                child: Text(
+                  "Dự án điều khiển xe Arduino",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(color: Colors.white),
+                )),
+            kSpacingHeight16,
+            _buildItem("Tốc độ xe", () {}),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              child: MyElevatedButton(
+                'Log out',
+                onPressed: () async {
+                  context.read<AuthBloc>().logout();
+                },
+              ),
+            ),
+            kSpacingHeight36
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItem(String title, Function callback) {
+    return InkWell(
+      onTap: callback(),
+      child: Container(
+        height: 48,
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title),
+                const Icon(Icons.arrow_forward_ios),
+              ],
+            ),
+            const Divider()
+          ],
+        ),
       ),
     );
   }

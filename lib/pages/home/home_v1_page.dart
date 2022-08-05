@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
 import 'package:project3y21/utils/app_constants.dart';
 import 'package:project3y21/utils/colors.dart';
 import 'package:project3y21/utils/share_preference_utils.dart';
 import 'dart:developer' as dev;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import '../../data/data.dart';
 import '../../widgets/control_pad/views/joystick_view.dart';
 
 class HomeV1Page extends StatefulWidget {
@@ -17,11 +19,12 @@ class HomeV1Page extends StatefulWidget {
 }
 
 class _HomeV1PageState extends State<HomeV1Page> {
-  late IO.Socket socket;
+  // late IO.Socket socket;
   String oldDirection = "S";
   bool onLed = false;
   String address =
       SharedPreferencesUtils.getData(NetworkConstants.addressServer);
+  final socket = GetIt.instance.get<AuthBloc>().socket;
 
   @override
   void initState() {
@@ -30,33 +33,33 @@ class _HomeV1PageState extends State<HomeV1Page> {
     /// http://localhost:3000
     /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    socket = IO.io(
-        address,
-        IO.OptionBuilder()
-            .setTransports(['websocket'])
-            .enableForceNew()
-            .build());
-    connect();
+    // socket = IO.io(
+    //     address,
+    //     IO.OptionBuilder()
+    //         .setTransports(['websocket'])
+    //         .enableForceNew()
+    //         .build());
+    // connect();
   }
 
-  void connect() {
-    dev.log('connecting', name: '');
-    socket.onConnect((data) {
-      print('Connection established');
-      Fluttertoast.showToast(
-          msg: 'Connection established', gravity: ToastGravity.CENTER);
-    });
-    socket.onConnectError((data) {
-      print('Connect Error: $data');
-      Fluttertoast.showToast(
-          msg: 'Connect Error', gravity: ToastGravity.CENTER);
-    });
-    socket.onDisconnect((data) {
-      print('Socket server disconnected');
-      Fluttertoast.showToast(
-          msg: 'Socket server disconnected', gravity: ToastGravity.CENTER);
-    });
-  }
+  // void connect() {
+  //   dev.log('connecting', name: '');
+  //   socket.onConnect((data) {
+  //     print('Connection established');
+  //     Fluttertoast.showToast(
+  //         msg: 'Connection established', gravity: ToastGravity.CENTER);
+  //   });
+  //   socket.onConnectError((data) {
+  //     print('Connect Error: $data');
+  //     Fluttertoast.showToast(
+  //         msg: 'Connect Error', gravity: ToastGravity.CENTER);
+  //   });
+  //   socket.onDisconnect((data) {
+  //     print('Socket server disconnected');
+  //     Fluttertoast.showToast(
+  //         msg: 'Socket server disconnected', gravity: ToastGravity.CENTER);
+  //   });
+  // }
 
   String? getDirection(double degrees, double distance) {
     if (distance != 0.00) {
@@ -101,13 +104,13 @@ class _HomeV1PageState extends State<HomeV1Page> {
   }
 
   onLedChange(bool onLed) {
-    socket.emit('led', onLed ? 1 : 0);
+    socket?.emit('led', onLed ? 1 : 0);
   }
 
   @override
   void dispose() {
     super.dispose();
-    socket.disconnect();
+    // socket?.disconnect();
   }
 
   @override
@@ -119,7 +122,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
       if (oldDirection != direction) {
         oldDirection = direction ?? "S";
         setState(() {});
-        socket.emit('direction', direction);
+        socket?.emit('direction', direction);
       }
       return null;
     }

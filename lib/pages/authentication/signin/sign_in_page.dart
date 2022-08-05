@@ -6,14 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:project3y21/utils/app_constants.dart';
 import '../../../data/data.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/share_preference_utils.dart';
-import '../../../widgets/design_system/formfield/formfield.dart';
-import '../../../widgets/my_elevated_button.dart';
-import 'dart:developer' as dev;
+import 'dart:developer' as developer;
+
+import '../../../widgets/widgets.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -51,10 +52,15 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isAndroid) {
+      _determinePosition();
+    }
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     _portController.text = "3000";
+    _ipAddressController.text = "192.168.";
+
     // _ipAddressController.addListener(() {
     //   isTextFieldEmpty();
     // });
@@ -80,6 +86,58 @@ class _SignInPageState extends State<SignInPage> {
       return Future.value(null);
     }
     return _updateConnectionStatus(result);
+  }
+
+  Future _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      DialogProvider.showErrorDialog(context,
+          'Dịch vụ vị trí đang tắt. Bạn cần bật định vị để xác thực hình ảnh!',
+          () async {
+        await Geolocator.openLocationSettings().then((value) async {
+          if (value) {
+            await initConnectivity();
+          }
+        });
+      });
+
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        DialogProvider.showDialogNormal(
+            'Bạn cần phải vào phần Cài đặt để chỉnh lại quyền truy cập vị trí.',
+            context,
+            'Huỷ',
+            'Đi tới cài đặt', () async {
+          await Geolocator.openAppSettings().then((value) async {
+            if (value) {
+              await initConnectivity();
+            }
+          });
+        });
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      DialogProvider.showDialogNormal(
+          'Bạn cần phải vào phần Cài đặt để chỉnh lại quyền truy cập vị trí.',
+          context,
+          'Huỷ',
+          'Đi tới cài đặt', () async {
+        await Geolocator.openAppSettings();
+      });
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
   }
 
   @override
@@ -115,7 +173,19 @@ class _SignInPageState extends State<SignInPage> {
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline4),
                   const SizedBox(
-                    height: 60,
+                    height: 32,
+                  ),
+                  SizedBox(
+                    width: 128,
+                    child: MyElevatedButton(
+                      "Reload Page",
+                      onPressed: () async {
+                        await initConnectivity();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -272,9 +342,10 @@ class _SignInPageState extends State<SignInPage> {
 
         setState(() {
           _connectionStatus = 'Connected';
-          _ssidWifi = "$wifiBSSID \n $wifiIP \n $wifiName";
+          _ssidWifi = "$wifiName \n $wifiIP \n $wifiName";
           NetworkConstants.ipAddress = wifiIP ?? "";
-          dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
+          developer
+              .log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
         });
         // final prefs = await SharedPreferences.getInstance();
         // prefs.setString(NetworkConstants.ipAddress, wifiIP ?? "");
