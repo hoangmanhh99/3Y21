@@ -113,5 +113,6 @@ const kSpacingWidth16 = SizedBox(
 class NetworkConstants {
   static String ipAddress = "ipAddress";
   static String addressServer = "addressServer";
+  static String speedArduino = "100";
 }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project3y21/pages/pages.dart';
 import 'package:project3y21/utils/utils.dart';
 
-import '../../data/blocs/auth/auth_bloc.dart';
-import '../../widgets/widgets.dart';
+import '../../../data/blocs/auth/auth_bloc.dart';
+import '../../../widgets/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
   static const path = "SettingsPage";
@@ -36,7 +37,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       .copyWith(color: Colors.white),
                 )),
             kSpacingHeight16,
-            _buildItem("Tốc độ xe", () {}),
+            _buildItem("Speed car", () {
+              Navigator.pushNamed(context, ChangeSpeedPage.path);
+            }),
+            _buildItem("Color LEDs", () {
+              Navigator.pushNamed(context, ChangeSpeedPage.path);
+            }),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -56,7 +62,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildItem(String title, Function callback) {
     return InkWell(
-      onTap: callback(),
+      onTap: () {
+        callback.call();
+      },
       child: Container(
         height: 48,
         padding: const EdgeInsets.symmetric(horizontal: 32),

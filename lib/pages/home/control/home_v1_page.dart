@@ -7,8 +7,8 @@ import 'package:project3y21/utils/share_preference_utils.dart';
 import 'dart:developer' as dev;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-import '../../data/data.dart';
-import '../../widgets/control_pad/views/joystick_view.dart';
+import '../../../data/data.dart';
+import '../../../widgets/control_pad/views/joystick_view.dart';
 
 class HomeV1Page extends StatefulWidget {
   static const path = "HomeV1Page";
@@ -33,13 +33,6 @@ class _HomeV1PageState extends State<HomeV1Page> {
     /// http://localhost:3000
     /// https://arduino-socket-app.herokuapp.com
     dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
-    // socket = IO.io(
-    //     address,
-    //     IO.OptionBuilder()
-    //         .setTransports(['websocket'])
-    //         .enableForceNew()
-    //         .build());
-    // connect();
   }
 
   // void connect() {

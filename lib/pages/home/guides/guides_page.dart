@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../gen/assets.gen.dart';
-import '../../utils/app_constants.dart';
+import '../../../gen/assets.gen.dart';
+import '../../../utils/app_constants.dart';
 import 'dart:developer' as developer;
 
-class DeviceControlPage extends StatefulWidget {
-  static const path = "DeviceControlPage";
-  const DeviceControlPage({Key? key}) : super(key: key);
+class GuidesPage extends StatefulWidget {
+  static const path = "GuidesPage";
+  const GuidesPage({Key? key}) : super(key: key);
 
   @override
-  _DeviceControlPageState createState() => _DeviceControlPageState();
+  _GuidesPageState createState() => _GuidesPageState();
 }
 
-class _DeviceControlPageState extends State<DeviceControlPage> {
+class _GuidesPageState extends State<GuidesPage> {
 
   @override
   Widget build(BuildContext context) {
