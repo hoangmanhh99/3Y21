@@ -40,8 +40,11 @@ class _SettingsPageState extends State<SettingsPage> {
             _buildItem("Speed car", () {
               Navigator.pushNamed(context, ChangeSpeedPage.path);
             }),
-            _buildItem("Color LEDs", () {
-              Navigator.pushNamed(context, ChangeSpeedPage.path);
+            _buildItem("Guides", () {
+              Navigator.pushNamed(context, GuidesPage.path);
+            }),
+            _buildItem("Change Color Joystick", () {
+              Navigator.pushNamed(context, GuidesPage.path);
             }),
             const Spacer(),
             Container(

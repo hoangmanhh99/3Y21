@@ -42,6 +42,7 @@ dependencies:
   cryptography_flutter: ^2.0.2
   dcdg: ^4.0.1
   geolocator: 8.2.1
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:

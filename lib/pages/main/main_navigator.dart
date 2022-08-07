@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../utils/utils.dart';
-import '../home/voice/alan_voice_page.dart';
 import '../pages.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -23,13 +22,16 @@ class _MainNavigatorState extends State<MainNavigator> {
             return MaterialPageRoute(builder: (context) => HomePage(1));
           case VoicePage.path:
             return MaterialPageRoute(builder: (context) => HomePage(2));
-          case GuidesPage.path:
+          case LedsPage.path:
             return MaterialPageRoute(builder: (context) => HomePage(3));
           case SettingsPage.path:
             return MaterialPageRoute(builder: (context) => HomePage(4));
           case ChangeSpeedPage.path:
             return MaterialPageRoute(
                 builder: (context) => const ChangeSpeedPage());
+          case GuidesPage.path:
+            return MaterialPageRoute(
+                builder: (context) => const GuidesPage());
           // case AlanVoicePage.path:
           //   return MaterialPageRoute(
           //       builder: (context) => const AlanVoicePage());
