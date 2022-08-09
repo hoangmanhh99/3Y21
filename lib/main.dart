@@ -7,12 +7,12 @@ import 'package:get_it/get_it.dart';
 import 'application.dart';
 import 'data/blocs/auth/auth_bloc.dart';
 import 'initialize_dependencies.dart';
-import 'package:dcdg/dcdg.dart';
+import 'package:supabase/supabase.dart';
 
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-
+  // await Supabase.initialize(url: 'https://udfkxbgpzkzjjvcqqtmv.supabase.co', anonKey: 'public-anon-key');
   await initializeDependencies();
 
   runApp(MultiBlocProvider(

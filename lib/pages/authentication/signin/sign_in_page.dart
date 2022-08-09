@@ -156,7 +156,7 @@ class _SignInPageState extends State<SignInPage> {
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Text(
-                    'Please connect to your arduino device!',
+                    'Please connect to your Server!',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
                         foreground: Paint()..shader = ColorConstants.mainColor),
                     textAlign: TextAlign.center,
