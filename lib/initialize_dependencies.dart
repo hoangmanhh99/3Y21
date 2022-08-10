@@ -7,6 +7,7 @@ import 'data/blocs/auth/auth_bloc.dart';
 import 'data/datasources/local/local_service.dart';
 import 'data/dto/dto.dart';
 import 'data/repositories/repositories.dart';
+import 'domain/domain.dart';
 import 'env.dart';
 
 Future initializeDependencies() async {
@@ -16,6 +17,7 @@ Future initializeDependencies() async {
   GetIt.instance.registerSingleton(dio);
 
   GetIt.instance.registerSingleton(AuthRepository());
+  GetIt.instance.registerSingleton<BaseRepository>(BaseRepositoryImpl());
 
   //region Local Service
   GetIt.instance.registerSingleton(await SharedPreferences.getInstance());

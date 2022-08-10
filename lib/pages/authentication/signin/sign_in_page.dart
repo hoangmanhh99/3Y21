@@ -9,12 +9,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:project3y21/utils/app_constants.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../data/data.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/share_preference_utils.dart';
 import 'dart:developer' as developer;
 
 import '../../../widgets/widgets.dart';
+
+// final client = Supabase.instance.client;
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -253,9 +256,13 @@ class _SignInPageState extends State<SignInPage> {
                                 SharedPreferencesUtils.setData(
                                     NetworkConstants.addressServer,
                                     'https://arduino-socket-app.herokuapp.com');
-                                context
+                                await context
                                     .read<AuthBloc>()
                                     .login("username", "password");
+                                // await client.auth.signIn(
+                                //     email: "manhhv.agiletech@gmail.com").then((value) {
+                                //       developer.log('SignInSupabase ${value.?.toJson()}', name: '');
+                                // });
                                 // }
                               }),
                   ),

@@ -16,6 +16,8 @@ class AuthBloc extends Cubit<AuthState> {
 
   IO.Socket? socket;
 
+  Stream? streamSocket;
+
   AuthBloc() : super(const AuthState.unAuthorized()) {
     GetIt.instance
         .get<Oauth2Manager<AuthenticationDto>>()
@@ -77,6 +79,9 @@ class AuthBloc extends Cubit<AuthState> {
       developer.log('Connection established');
       Fluttertoast.showToast(
           msg: 'Connection established', gravity: ToastGravity.CENTER);
+    });
+    socket?.on("led", (data) {
+      developer.log('ConnectionLedLog ${data}');
     });
     socket?.onConnectError((data) {
       developer.log('Connect Error: $data');

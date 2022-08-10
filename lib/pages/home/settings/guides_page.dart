@@ -11,6 +11,16 @@ class GuidesPage extends StatefulWidget {
 class _GuidesPageState extends State<GuidesPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Guides to connect Arduino",
+          style: Theme.of(context)
+              .textTheme
+              .headline6!
+              .copyWith(color: Colors.white),
+        ),
+      ),
+    );
   }
 }

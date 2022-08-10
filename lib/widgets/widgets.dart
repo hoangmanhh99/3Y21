@@ -5,4 +5,5 @@ export 'custom_paint.dart';
 export 'design_system/design_system.dart';
 export 'my_elevated_button.dart';
 export 'my_outlined_button.dart';
+export 'page_loading_overlay.dart';
 export 'popup/popup.dart';

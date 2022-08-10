@@ -36,6 +36,14 @@ class _LedsPageState extends State<LedsPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    socket?.on("led", (data) {
+      developer.log('LedLog ${data}', name: '');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
