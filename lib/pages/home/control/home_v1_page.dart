@@ -25,6 +25,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
   String address =
       SharedPreferencesUtils.getData(NetworkConstants.addressServer);
   final socket = GetIt.instance.get<AuthBloc>().socket;
+  String speedCar = "";
 
   @override
   void initState() {
@@ -115,7 +116,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
       if (oldDirection != direction) {
         oldDirection = direction ?? "S";
         setState(() {});
-        socket?.emit('direction', direction);
+        socket?.emit('direction', "$direction&$speedCar");
       }
       return null;
     }
@@ -137,6 +138,31 @@ class _HomeV1PageState extends State<HomeV1Page> {
             ),
           ),
           kSpacingHeight48,
+          FutureBuilder<String>(
+              future: BaseRepositoryImpl().getSpeedCar(),
+              builder: (context, snap) {
+                if (!snap.hasData) {
+                  if (snap.hasError) {
+                    return Center(
+                      child: Text(snap.error.toString()),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                speedCar = snap.data!;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Speed Car: "),
+                    Text(
+                      snap.data!,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(),
+                    ),
+                  ],
+                );
+              }),
           kSpacingHeight24,
           Text(
             address,
