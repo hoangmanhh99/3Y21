@@ -21,25 +21,26 @@ class _LedsPageState extends State<LedsPage> {
   bool onLed = false;
   final socket = GetIt.instance.get<AuthBloc>().socket;
 
-  Color pickerColor = const Color(0xff000000);
+  Color pickerColor = const Color(0xffff0000);
 
   onLedChange(bool onLed) {
     socket?.emit(
         'led',
         onLed
-            ? "ON&0x${pickerColor.value.toRadixString(16).replaceAll("ff", "")}"
-            : "OFF&0x${pickerColor.value.toRadixString(16).replaceAll("ff", "")}");
+            ? "ON&r${pickerColor.red}g${pickerColor.green}b${pickerColor.blue}*"
+            : "OFF&r${pickerColor.red}g${pickerColor.green}b${pickerColor.blue}*");
   }
 
   void changeColor(Color color) {
     setState(() => pickerColor = color);
+    developer.log('LedLog ${pickerColor.red}', name: '');
   }
 
   @override
   void initState() {
     super.initState();
     socket?.on("led", (data) {
-      developer.log('LedLog ${data}', name: '');
+      developer.log('ConnectionLedLog ${data}');
     });
   }
 

@@ -30,4 +30,13 @@ class BaseApiService {
       rethrow;
     }
   }
+
+  // Future<String> getSpeedCar() async {
+  //   try {
+  //     final response = await client.from("settings").select("speed").execute();
+  //     return (response.data as List<dynamic>)[0]['speed'];
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 }

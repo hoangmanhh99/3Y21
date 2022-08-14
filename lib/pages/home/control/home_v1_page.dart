@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:project3y21/gen/gen.dart';
 import 'package:project3y21/utils/app_constants.dart';
 import 'package:project3y21/utils/colors.dart';
 import 'package:project3y21/utils/share_preference_utils.dart';
-import 'dart:developer' as dev;
+import 'dart:developer' as developer;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:audioplayers/audioplayers.dart';
 
 import '../../../data/data.dart';
 import '../../../widgets/control_pad/views/joystick_view.dart';
@@ -19,41 +23,31 @@ class HomeV1Page extends StatefulWidget {
 }
 
 class _HomeV1PageState extends State<HomeV1Page> {
-  // late IO.Socket socket;
+  AudioPlayer _audioPlayer = AudioPlayer();
   String oldDirection = "S";
   bool onLed = false;
   String address =
       SharedPreferencesUtils.getData(NetworkConstants.addressServer);
   final socket = GetIt.instance.get<AuthBloc>().socket;
   String speedCar = "";
+  String distance = '';
+  StreamController<String> distanceValue = StreamController.broadcast();
 
   @override
   void initState() {
     super.initState();
 
-    /// http://localhost:3000
-    /// https://arduino-socket-app.herokuapp.com
-    dev.log('NetworkConstants.ipAddress ${NetworkConstants.ipAddress}');
+    socket?.on("distance", (data) {
+      // setState(() {
+      //   distance = data;
+      // });
+      distanceValue.sink.add(data);
+      // if (double.parse(distance) < 20) {
+      //   _audioPlayer.play(AssetSource("assets/sounds/s_alarm.mp3"));
+      // }
+      developer.log('ConnectionDistanceLog ${data}');
+    });
   }
-
-  // void connect() {
-  //   dev.log('connecting', name: '');
-  //   socket.onConnect((data) {
-  //     print('Connection established');
-  //     Fluttertoast.showToast(
-  //         msg: 'Connection established', gravity: ToastGravity.CENTER);
-  //   });
-  //   socket.onConnectError((data) {
-  //     print('Connect Error: $data');
-  //     Fluttertoast.showToast(
-  //         msg: 'Connect Error', gravity: ToastGravity.CENTER);
-  //   });
-  //   socket.onDisconnect((data) {
-  //     print('Socket server disconnected');
-  //     Fluttertoast.showToast(
-  //         msg: 'Socket server disconnected', gravity: ToastGravity.CENTER);
-  //   });
-  // }
 
   String? getDirection(double degrees, double distance) {
     if (distance != 0.00) {
@@ -105,6 +99,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
   void dispose() {
     super.dispose();
     // socket?.disconnect();
+    socket?.off("distance");
+    distanceValue.close();
   }
 
   @override
@@ -112,7 +108,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
     JoystickDirectionCallback? onDirectionChangedMovement(
         double degrees, double distance) {
       String? direction = getDirection(degrees, distance);
-      dev.log('$direction');
+      developer.log('$direction');
       if (oldDirection != direction) {
         oldDirection = direction ?? "S";
         setState(() {});
@@ -127,6 +123,36 @@ class _HomeV1PageState extends State<HomeV1Page> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          StreamBuilder(
+              stream: distanceValue.stream,
+              builder: (context, snap) {
+                if (!snap.hasData) {
+                  if (snap.hasError) {
+                    return Text(snap.error.toString());
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                developer.log('DistanceStream ${snap.requireData}');
+                if (double.parse(snap.requireData.toString()) < 20 &&
+                    double.parse(snap.requireData.toString()) >= 0) {
+                  _audioPlayer.play(
+                    AssetSource("sounds/s_alarm.mp3"),
+                  );
+                  for (int i = 0; i < 10; i++) {
+                    socket?.emit('led', "ON&r${255}g${0}b${0}*");
+                    socket?.emit('led', "OFF&r${255}g${0}b${0}*");
+                  }
+                }
+                return Text(
+                  '${snap.requireData}',
+                  style: Theme.of(context).textTheme.bodyText1,
+                );
+              }),
+          const SizedBox(
+            height: 36,
+          ),
           JoystickView(
             onDirectionChanged: onDirectionChangedMovement,
           ),

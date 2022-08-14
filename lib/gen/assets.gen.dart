@@ -70,11 +70,19 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/round_home_black_24dp.png');
 }
 
+class $AssetsSoundsGen {
+  const $AssetsSoundsGen();
+
+  /// File path: assets/sounds/s_alarm.mp3
+  String get sAlarm => 'assets/sounds/s_alarm.mp3';
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }
 
 class AssetGenImage {

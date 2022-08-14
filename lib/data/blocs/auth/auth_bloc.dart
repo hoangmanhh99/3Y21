@@ -35,11 +35,12 @@ class AuthBloc extends Cubit<AuthState> {
   //Call on splash screen
   Future initializeApp() async {
     final profile = await _authRepository.profile();
-    developer.log('ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
+    developer.log(
+        'ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
     socket = IO.io(
         SharedPreferencesUtils.getData(NetworkConstants.addressServer),
         IO.OptionBuilder()
-            .setTransports(['websocket'])
+            .setTransports(['websocket', 'polling'])
             .enableForceNew()
             .build());
     await connectSocket();
@@ -49,11 +50,12 @@ class AuthBloc extends Cubit<AuthState> {
   Future login(String username, String password) async {
     final auth = await _authRepository.login(username, password);
     final profile = await _authRepository.profile();
-    developer.log('ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
+    developer.log(
+        'ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
     socket = IO.io(
         SharedPreferencesUtils.getData(NetworkConstants.addressServer),
         IO.OptionBuilder()
-            .setTransports(['websocket'])
+            .setTransports(['websocket', 'polling'])
             .enableForceNew()
             .build());
     await connectSocket();
@@ -80,9 +82,9 @@ class AuthBloc extends Cubit<AuthState> {
       Fluttertoast.showToast(
           msg: 'Connection established', gravity: ToastGravity.CENTER);
     });
-    socket?.on("led", (data) {
-      developer.log('ConnectionLedLog ${data}');
-    });
+    // socket?.on("distance", (data) {
+    //   developer.log('ConnectionDistanceLog ${data}');
+    // });
     socket?.onConnectError((data) {
       developer.log('Connect Error: $data');
       Fluttertoast.showToast(
