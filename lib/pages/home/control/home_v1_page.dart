@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:project3y21/gen/gen.dart';
+import 'package:project3y21/data/blocs/alert/alert_bloc.dart';
+import 'package:project3y21/data/blocs/alert/alert_state.dart';
 import 'package:project3y21/utils/app_constants.dart';
-import 'package:project3y21/utils/colors.dart';
 import 'package:project3y21/utils/share_preference_utils.dart';
 import 'dart:developer' as developer;
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/data.dart';
 import '../../../widgets/control_pad/views/joystick_view.dart';
@@ -23,7 +22,7 @@ class HomeV1Page extends StatefulWidget {
 }
 
 class _HomeV1PageState extends State<HomeV1Page> {
-  AudioPlayer _audioPlayer = AudioPlayer();
+  final AudioPlayer _audioPlayer = AudioPlayer();
   String oldDirection = "S";
   bool onLed = false;
   String address =
@@ -47,6 +46,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
       // }
       developer.log('ConnectionDistanceLog ${data}');
     });
+
+    context.read<AlertBloc>().fetchAlertInfo();
   }
 
   String? getDirection(double degrees, double distance) {
@@ -123,33 +124,55 @@ class _HomeV1PageState extends State<HomeV1Page> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          StreamBuilder(
-              stream: distanceValue.stream,
-              builder: (context, snap) {
-                if (!snap.hasData) {
-                  if (snap.hasError) {
-                    return Text(snap.error.toString());
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
+          BlocBuilder<AlertBloc, AlertState>(
+            builder: (context, state) {
+              return state.when(
+                (distanceAlert, colorAlert) {
+                  Color colorA = Color(int.parse('0xFF$colorAlert'));
+                  return StreamBuilder(
+                    stream: distanceValue.stream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        if (snapshot.hasError) {
+                          return Text(
+                            snapshot.error.toString(),
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (double.parse(snapshot.requireData.toString()) <
+                              distanceAlert &&
+                          double.parse(snapshot.requireData.toString()) >= 0) {
+                        _audioPlayer.play(
+                          AssetSource("sounds/s_alarm.mp3"),
+                        );
+                        for (int i = 0; i < 10; i++) {
+                          socket?.emit('led',
+                              "ON&r${colorA.red}g${colorA.green}b${colorA.blue}*");
+                          socket?.emit('led',
+                              "OFF&r${colorA.red}g${colorA.green}b${colorA.blue}*");
+                        }
+                      }
+                      return Text(
+                        '${snapshot.requireData}',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      );
+                    },
                   );
-                }
-                developer.log('DistanceStream ${snap.requireData}');
-                if (double.parse(snap.requireData.toString()) < 20 &&
-                    double.parse(snap.requireData.toString()) >= 0) {
-                  _audioPlayer.play(
-                    AssetSource("sounds/s_alarm.mp3"),
-                  );
-                  for (int i = 0; i < 10; i++) {
-                    socket?.emit('led', "ON&r${255}g${0}b${0}*");
-                    socket?.emit('led', "OFF&r${255}g${0}b${0}*");
-                  }
-                }
-                return Text(
-                  '${snap.requireData}',
-                  style: Theme.of(context).textTheme.bodyText1,
-                );
-              }),
+                },
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (error) => Center(
+                  child: Text(
+                    error.toString(),
+                  ),
+                ),
+              );
+            },
+          ),
           const SizedBox(
             height: 36,
           ),
@@ -165,30 +188,31 @@ class _HomeV1PageState extends State<HomeV1Page> {
           ),
           kSpacingHeight48,
           FutureBuilder<String>(
-              future: BaseRepositoryImpl().getSpeedCar(),
-              builder: (context, snap) {
-                if (!snap.hasData) {
-                  if (snap.hasError) {
-                    return Center(
-                      child: Text(snap.error.toString()),
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
+            future: BaseRepositoryImpl().getSpeedCar(),
+            builder: (context, snap) {
+              if (!snap.hasData) {
+                if (snap.hasError) {
+                  return Center(
+                    child: Text(snap.error.toString()),
                   );
                 }
-                speedCar = snap.data!;
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Speed Car: "),
-                    Text(
-                      snap.data!,
-                      style: Theme.of(context).textTheme.headline6!.copyWith(),
-                    ),
-                  ],
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              }),
+              }
+              speedCar = snap.data!;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Speed Car: "),
+                  Text(
+                    snap.data!,
+                    style: Theme.of(context).textTheme.headline6!.copyWith(),
+                  ),
+                ],
+              );
+            },
+          ),
           kSpacingHeight24,
           Text(
             address,

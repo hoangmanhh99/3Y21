@@ -57,7 +57,7 @@ class BaseApiService {
     }
   }
 
-  Future<double?> getDistanceAlert() async {
+  Future<double> getDistanceAlert() async {
     try {
       final response =
           await client.from("settings").select("distance_alert").execute();

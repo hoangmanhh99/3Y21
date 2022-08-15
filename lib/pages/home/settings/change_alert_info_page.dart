@@ -44,109 +44,112 @@ class _ChangeAlertInfoPageState extends State<ChangeAlertInfoPage> {
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-        child: Column(
-          children: [
-            FutureBuilder<String>(
-              future: _futureColor,
-              builder: (context, snap) {
-                if (!snap.hasData) {
-                  if (snap.hasError) {
-                    return Center(
-                      child: Text(
-                        snap.error.toString(),
-                      ),
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                // distanceController.text = snap.data!.toString();
-                developer.log('ColorAlertLog ${snap.data!}', name: '');
-                colorPicker = snap.data!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Change Alert Color",
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                    kSpacingHeight4,
-                    ColorPicker(
-                        pickerColor: Color(
-                          int.parse('0xFF${snap.data!}'),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              FutureBuilder<String>(
+                future: _futureColor,
+                builder: (context, snap) {
+                  if (!snap.hasData) {
+                    if (snap.hasError) {
+                      return Center(
+                        child: Text(
+                          snap.error.toString(),
                         ),
-                        paletteType: PaletteType.hueWheel,
-                        onColorChanged: (color) {
-                          // setState(() {
-                          colorPicker =
-                              color.value.toRadixString(16).substring(2);
-                          developer.log(
-                              '${color.value.toRadixString(16).substring(2)}',
-                              name: '');
-                          // });
-                        })
-                  ],
-                );
-              },
-            ),
-            kSpacingHeight12,
-            FutureBuilder<double?>(
-              future: _futureDistance,
-              builder: (context, snap) {
-                if (!snap.hasData) {
-                  if (snap.hasError) {
-                    return Center(
-                      child: Text(
-                        snap.error.toString(),
-                      ),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
                   }
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  // distanceController.text = snap.data!.toString();
+                  developer.log('ColorAlertLog ${snap.data!}', name: '');
+                  colorPicker = snap.data!;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Change Alert Color",
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      kSpacingHeight4,
+                      ColorPicker(
+                          pickerColor: Color(
+                            int.parse('0xFF${snap.data!}'),
+                          ),
+                          paletteType: PaletteType.hueWheel,
+                          onColorChanged: (color) {
+                            // setState(() {
+                            colorPicker =
+                                color.value.toRadixString(16).substring(2);
+                            developer.log(
+                                '${color.value.toRadixString(16).substring(2)}',
+                                name: '');
+                            // });
+                          })
+                    ],
                   );
-                }
-                distanceController.text = (snap.data ?? 20.0).toString();
-                developer.log('DistanceAlertLog ${snap.data!}', name: '');
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Distance Alert",
-                      style: Theme.of(context).textTheme.bodyText2,
+                },
+              ),
+              kSpacingHeight12,
+              FutureBuilder<double?>(
+                future: _futureDistance,
+                builder: (context, snap) {
+                  if (!snap.hasData) {
+                    if (snap.hasError) {
+                      return Center(
+                        child: Text(
+                          snap.error.toString(),
+                        ),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  distanceController.text = (snap.data ?? 20.0).toString();
+                  developer.log('DistanceAlertLog ${snap.data!}', name: '');
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Distance Alert",
+                        style: Theme.of(context).textTheme.bodyText2,
+                      ),
+                      kSpacingHeight4,
+                      TextFormField(
+                        controller: distanceController,
+                      )
+                    ],
+                  );
+                },
+              ),
+              // const Spacer(),
+              kSpacingHeight24,
+              MyElevatedButton(
+                "Save",
+                onPressed: () async {
+                  await context
+                      .runTask(
+                    BaseRepositoryImpl()
+                        .updateDistanceAlert(double.parse(distanceController.text))
+                        .then(
+                      (value) async {
+                        await BaseRepositoryImpl().updateAlertColor(colorPicker);
+                      },
                     ),
-                    kSpacingHeight4,
-                    TextFormField(
-                      controller: distanceController,
-                    )
-                  ],
-                );
-              },
-            ),
-            const Spacer(),
-            MyElevatedButton(
-              "Save",
-              onPressed: () async {
-                await context
-                    .runTask(
-                  BaseRepositoryImpl()
-                      .updateDistanceAlert(double.parse(distanceController.text))
+                  )
                       .then(
-                    (value) async {
-                      await BaseRepositoryImpl().updateAlertColor(colorPicker);
+                    (value) {
+                      Navigator.pop(context);
                     },
-                  ),
-                )
-                    .then(
-                  (value) {
-                    Navigator.pop(context);
-                  },
-                );
-                // SharedPreferencesUtils.setData(
-                //     NetworkConstants.speedArduino, speedController);
-              },
-            )
-          ],
+                  );
+                  // SharedPreferencesUtils.setData(
+                  //     NetworkConstants.speedArduino, speedController);
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

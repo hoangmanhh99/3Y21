@@ -5,6 +5,6 @@ abstract class BaseRepository {
   Future<dynamic> updateSpeedCar(String speed);
   Future<String> getColorAlert();
   Future<dynamic> updateAlertColor(String color);
-  Future<double?> getDistanceAlert();
+  Future<double> getDistanceAlert();
   Future<dynamic> updateDistanceAlert(double distance);
 }

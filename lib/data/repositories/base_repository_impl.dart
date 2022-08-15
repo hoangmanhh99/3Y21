@@ -23,7 +23,7 @@ class BaseRepositoryImpl implements BaseRepository {
   }
 
   @override
-  Future<double?> getDistanceAlert() {
+  Future<double> getDistanceAlert() {
     return baseApiService.getDistanceAlert();
   }
 

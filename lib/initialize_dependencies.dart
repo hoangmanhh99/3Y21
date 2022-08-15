@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:oauth2_dio/oauth2_dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'data/blocs/alert/alert_bloc.dart';
 import 'data/blocs/auth/auth_bloc.dart';
 import 'data/datasources/local/local_service.dart';
 import 'data/dto/dto.dart';
@@ -56,4 +57,6 @@ Future initializeDependencies() async {
   GetIt.instance.registerSingleton(AuthNavigationBloc());
 
   GetIt.instance.registerSingleton(AuthBloc());
+
+  GetIt.instance.registerSingleton(AlertBloc());
 }
