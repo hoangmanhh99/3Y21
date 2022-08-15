@@ -8,6 +8,7 @@ export 'gen/gen.dart';
 export 'initialize_dependencies.dart';
 export 'main.dart';
 export 'pages/pages.dart';
+export 'services/services.dart';
 export 'themes.dart';
 export 'utils/utils.dart';
 export 'widgets/widgets.dart';

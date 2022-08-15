@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project3y21/pages/home/settings/change_alert_info_page.dart';
 import 'package:project3y21/pages/pages.dart';
 import 'package:project3y21/utils/utils.dart';
 
@@ -39,6 +40,9 @@ class _SettingsPageState extends State<SettingsPage> {
             kSpacingHeight16,
             _buildItem("Speed car", () {
               Navigator.pushNamed(context, ChangeSpeedPage.path);
+            }),
+            _buildItem("Change Color Alert", () {
+              Navigator.pushNamed(context, ChangeAlertInfoPage.path);
             }),
             _buildItem("Guides", () {
               Navigator.pushNamed(context, GuidesPage.path);

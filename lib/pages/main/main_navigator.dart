@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project3y21/pages/home/settings/change_alert_info_page.dart';
 import '../../utils/utils.dart';
 import '../pages.dart';
 
@@ -32,6 +33,9 @@ class _MainNavigatorState extends State<MainNavigator> {
           case GuidesPage.path:
             return MaterialPageRoute(
                 builder: (context) => const GuidesPage());
+          case ChangeAlertInfoPage.path:
+            return MaterialPageRoute(
+                builder: (context) => const ChangeAlertInfoPage());
           // case AlanVoicePage.path:
           //   return MaterialPageRoute(
           //       builder: (context) => const AlanVoicePage());

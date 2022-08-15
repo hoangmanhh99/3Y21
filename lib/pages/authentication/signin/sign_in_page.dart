@@ -179,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
                     height: 32,
                   ),
                   SizedBox(
-                    width: 128,
+                    width: 136,
                     child: MyElevatedButton(
                       "Reload Page",
                       onPressed: () async {
