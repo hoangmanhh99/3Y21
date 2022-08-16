@@ -32,6 +32,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
   String distance = '';
   StreamController<String> distanceValue = StreamController.broadcast();
 
+  StreamController<bool> haveAlert = StreamController.broadcast();
+
   @override
   void initState() {
     super.initState();
@@ -118,6 +120,18 @@ class _HomeV1PageState extends State<HomeV1Page> {
       return null;
     }
 
+    JoystickDirectionCallback? onDirectionChangedMovementWithoutForward(
+        double degrees, double distance) {
+      String? direction = getDirection(degrees, distance);
+      developer.log('$direction');
+      if (oldDirection != direction && direction != "F") {
+        oldDirection = direction ?? "S";
+        setState(() {});
+        socket?.emit('direction', "$direction&$speedCar");
+      }
+      return null;
+    }
+
     return Container(
       color: Colors.white,
       alignment: Alignment.center,
@@ -145,6 +159,7 @@ class _HomeV1PageState extends State<HomeV1Page> {
                       if (double.parse(snapshot.requireData.toString()) <
                               distanceAlert &&
                           double.parse(snapshot.requireData.toString()) >= 0) {
+                        haveAlert.sink.add(true);
                         _audioPlayer.play(
                           AssetSource("sounds/s_alarm.mp3"),
                         );
@@ -154,6 +169,8 @@ class _HomeV1PageState extends State<HomeV1Page> {
                           socket?.emit('led',
                               "OFF&r${colorA.red}g${colorA.green}b${colorA.blue}*");
                         }
+                      } else {
+                        haveAlert.sink.add(false);
                       }
                       return Text(
                         '${snapshot.requireData}',
@@ -176,9 +193,16 @@ class _HomeV1PageState extends State<HomeV1Page> {
           const SizedBox(
             height: 36,
           ),
-          JoystickView(
-            onDirectionChanged: onDirectionChangedMovement,
-          ),
+          StreamBuilder(
+              stream: haveAlert.stream,
+              initialData: false,
+              builder: (context, snap) {
+                return JoystickView(
+                  onDirectionChanged: (snap.data == false)
+                      ? onDirectionChangedMovement
+                      : onDirectionChangedMovementWithoutForward,
+                );
+              }),
           Container(
             padding: const EdgeInsets.only(top: 64),
             child: Text(

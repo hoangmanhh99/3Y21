@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import '../../../data/data.dart';
 import '../../../utils/app_constants.dart';
 import 'dart:developer' as developer;
 
@@ -27,8 +31,11 @@ class _VoicePageState extends State<VoicePage> {
   bool _hasSpeech = false;
   bool _logEvents = true;
 
+  final socket = GetIt.instance.get<AuthBloc>().socket;
+
   String _currentLocaleId = '';
   List<LocaleName> _localeNames = [];
+  String speedCar = '';
   @override
   void initState() {
     super.initState();
@@ -42,6 +49,7 @@ class _VoicePageState extends State<VoicePage> {
     try {
       var hasSpeed = await _speechToText.initialize(
           onError: errorListener, onStatus: statusListener, debugLogging: true);
+      speedCar = await BaseRepositoryImpl().getSpeedCar();
       if (hasSpeed) {
         _localeNames = await _speechToText.locales();
 
@@ -109,6 +117,8 @@ class _VoicePageState extends State<VoicePage> {
       _lastWords = '${result.recognizedWords}';
       _speechEnabled = false;
     });
+
+    analysisVoice(result.recognizedWords);
   }
 
   void errorListener(SpeechRecognitionError error) {
@@ -200,5 +210,44 @@ class _VoicePageState extends State<VoicePage> {
         ),
       ),
     );
+  }
+
+  void analysisVoice(String keyWord) {
+    switch (keyWord) {
+      case "rẽ phải":
+        developer.log('Right', name: '');
+        socket?.emit("direction", "R&120");
+        Timer(const Duration(milliseconds: 300), () {
+          socket?.emit("direction", "S&120");
+        });
+        break;
+      case "đi thẳng":
+        developer.log('Forward', name: '');
+        socket?.emit("direction", "F&120");
+        Timer(const Duration(milliseconds: 1000), () {
+          socket?.emit("direction", "S&120");
+        });
+        break;
+      case "đi lùi":
+        developer.log('Backward', name: '');
+        socket?.emit("direction", "B&120");
+        Timer(const Duration(milliseconds: 1000), () {
+          socket?.emit("direction", "S&120");
+        });
+        break;
+      case "dừng lại":
+        developer.log('Stop', name: '');
+        socket?.emit("direction", "S&120");
+        break;
+      case "rẽ trái":
+        developer.log('Left', name: '');
+        socket?.emit("direction", "L&120");
+        Timer(const Duration(milliseconds: 300), () {
+          socket?.emit("direction", "S&120");
+        });
+        break;
+      default:
+        socket?.emit("direction", "S&120");
+    }
   }
 }
