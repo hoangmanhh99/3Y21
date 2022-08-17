@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:project3y21/data/blocs/alert/alert_bloc.dart';
@@ -173,8 +174,11 @@ class _HomeV1PageState extends State<HomeV1Page> {
                         haveAlert.sink.add(false);
                       }
                       return Text(
-                        '${snapshot.requireData}',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        'Distance to obstacle\n\n${snapshot.requireData}',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontWeight: FontWeight.bold
+                        ),
                       );
                     },
                   );

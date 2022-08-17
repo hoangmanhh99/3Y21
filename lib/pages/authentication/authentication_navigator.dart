@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:project3y21/pages/authentication/sign_up/sign_up_page.dart';
 import '../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 import '../pages.dart';
@@ -15,7 +16,6 @@ class AuthenticationNavigator extends StatefulWidget {
 }
 
 class _AuthenticationNavigatorState extends State<AuthenticationNavigator> {
-
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,12 @@ class _AuthenticationNavigatorState extends State<AuthenticationNavigator> {
     return NavigatorSupport(
       initialRoute: 'login',
       onGenerateRoute: (settings) {
-        return MaterialPageRoute(builder: (context) => const SignInPage());
+        switch (settings.name) {
+          case 'login':
+            return MaterialPageRoute(builder: (context) => const SignInPage());
+          case SignUpPage.path:
+            return MaterialPageRoute(builder: (context) => const SignUpPage());
+        }
       },
     );
   }

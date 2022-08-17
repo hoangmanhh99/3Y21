@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:project3y21/data/data.dart';
+import 'package:project3y21/domain/model/devices_model.dart';
 
 import '../../domain/domain.dart';
 
@@ -35,5 +36,10 @@ class BaseRepositoryImpl implements BaseRepository {
   @override
   Future updateDistanceAlert(double distance) {
     return baseApiService.updateDistanceAlert(distance);
+  }
+
+  @override
+  Future<List<DevicesModel>> getListDevices() {
+    return baseApiService.getListDevices();
   }
 }

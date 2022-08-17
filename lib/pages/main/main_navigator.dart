@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project3y21/pages/home/home_new_page.dart';
 import 'package:project3y21/pages/home/settings/change_alert_info_page.dart';
 import '../../utils/utils.dart';
 import '../pages.dart';
@@ -18,7 +19,9 @@ class _MainNavigatorState extends State<MainNavigator> {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case 'home':
-            return MaterialPageRoute(builder: (context) => HomePage(1));
+            return MaterialPageRoute(builder: (context) => const HomeNewPage());
+          // case 'home':
+          //   return MaterialPageRoute(builder: (context) => HomePage(1));
           case HomeV1Page.path:
             return MaterialPageRoute(builder: (context) => HomePage(1));
           case VoicePage.path:

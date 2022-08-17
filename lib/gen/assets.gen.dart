@@ -65,6 +65,10 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/ESP32_new.png
+  AssetGenImage get eSP32New =>
+      const AssetGenImage('assets/images/ESP32_new.png');
+
   /// File path: assets/images/round_home_black_24dp.png
   AssetGenImage get roundHomeBlack24dp =>
       const AssetGenImage('assets/images/round_home_black_24dp.png');

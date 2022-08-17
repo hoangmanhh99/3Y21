@@ -37,8 +37,10 @@ class AuthBloc extends Cubit<AuthState> {
     final profile = await _authRepository.profile();
     developer.log(
         'ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
+
+    /// SharedPreferencesUtils.getData(NetworkConstants.addressServer)
     socket = IO.io(
-        SharedPreferencesUtils.getData(NetworkConstants.addressServer),
+        'http://192.168.1.11:3000',
         IO.OptionBuilder()
             .setTransports(['websocket', 'polling'])
             .enableForceNew()
@@ -47,19 +49,23 @@ class AuthBloc extends Cubit<AuthState> {
     emit(AuthState.authorized(profile));
   }
 
-  Future login(String username, String password) async {
-    final auth = await _authRepository.login(username, password);
+  Future login(String email, String password) async {
+    final auth = await _authRepository.login(email, password);
     final profile = await _authRepository.profile();
     developer.log(
         'ServerAddress ${SharedPreferencesUtils.getData(NetworkConstants.addressServer)}');
     socket = IO.io(
-        SharedPreferencesUtils.getData(NetworkConstants.addressServer),
+        'http://192.168.1.11:3000',
         IO.OptionBuilder()
             .setTransports(['websocket', 'polling'])
             .enableForceNew()
             .build());
     await connectSocket();
     GetIt.instance.get<Oauth2Manager<AuthenticationDto>>().add(auth);
+  }
+
+  Future signUp(String email, String password) async {
+    await _authRepository.signUp(email, password);
   }
 
   Future logout() async {
@@ -69,12 +75,6 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future connectSocket() async {
-    // IO.Socket socket = IO.io(
-    //     SharedPreferencesUtils.getData(NetworkConstants.addressServer),
-    //     IO.OptionBuilder()
-    //         .setTransports(['websocket'])
-    //         .enableForceNew()
-    //         .build());
     developer.log('connecting', name: '');
 
     socket?.onConnect((data) {

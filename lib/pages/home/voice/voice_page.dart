@@ -213,11 +213,11 @@ class _VoicePageState extends State<VoicePage> {
   }
 
   void analysisVoice(String keyWord) {
-    switch (keyWord) {
+    switch (keyWord.toLowerCase()) {
       case "rẽ phải":
         developer.log('Right', name: '');
         socket?.emit("direction", "R&120");
-        Timer(const Duration(milliseconds: 300), () {
+        Timer(const Duration(milliseconds: 500), () {
           socket?.emit("direction", "S&120");
         });
         break;
@@ -245,6 +245,14 @@ class _VoicePageState extends State<VoicePage> {
         Timer(const Duration(milliseconds: 300), () {
           socket?.emit("direction", "S&120");
         });
+        break;
+      case "bật đèn":
+        developer.log('Led on', name: '');
+        socket?.emit("led", "ON&r${255}g${0}b${0}*");
+        break;
+      case "tắt đèn":
+        developer.log('Led off', name: '');
+        socket?.emit("led", "OFF&r${255}g${0}b${0}*");
         break;
       default:
         socket?.emit("direction", "S&120");

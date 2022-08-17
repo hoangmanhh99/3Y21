@@ -3,8 +3,8 @@ import '../data.dart';
 class AuthRepository {
   AuthApiService authApiService = AuthApiService();
 
-  Future<AuthenticationDto> login(String userName, String passWord) {
-    return authApiService.login(userName, passWord);
+  Future<AuthenticationDto> login(String email, String password) {
+    return authApiService.login(email, password);
   }
 
   Future logout() {
@@ -13,5 +13,9 @@ class AuthRepository {
 
   Future<ProfileDto> profile() {
     return authApiService.profile();
+  }
+
+  Future<AuthenticationDto> signUp(String email, password) {
+    return authApiService.signUp(email, password);
   }
 }

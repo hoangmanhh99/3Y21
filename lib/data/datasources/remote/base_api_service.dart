@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:project3y21/data/data.dart';
+import 'package:project3y21/data/dto/devices_dto.dart';
+import 'package:project3y21/domain/model/devices_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:developer' as developer;
 
@@ -61,8 +64,9 @@ class BaseApiService {
     try {
       final response =
           await client.from("settings").select("distance_alert").execute();
-      return double.tryParse(
-              (response.data as List<dynamic>)[0]['distance_alert'].toString()) ??
+      return double.tryParse((response.data as List<dynamic>)[0]
+                  ['distance_alert']
+              .toString()) ??
           20.0;
     } catch (e) {
       rethrow;
@@ -79,6 +83,18 @@ class BaseApiService {
       developer.log('${response.data} ${response.error}', name: '');
       return response.data;
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<DevicesModel>> getListDevices() async {
+    try {
+      final response = await client.from("devices").select().execute();
+      developer.log('${response.data} ${response.error}', name: '');
+      final data =
+          (response.data as List).map((e) => DevicesDto.fromJson(e)).toList();
+      return data;
+    } catch (error) {
       rethrow;
     }
   }
